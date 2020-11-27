@@ -1,0 +1,111 @@
+<div class="homeBody container-fluid px-4 px-md-4 py-5 mx-auto">
+    <div class="row d-flex justify-content-center align">
+        <div class="card border-0 rounded-0 mb-5">
+          
+            <h1 class="mb-2">Registrarse</h1> <small class="mb-3">Complete los espacios siguientes</small>
+            <label class="font-weight-bold mb-0">Nombre Completo</label> <input type="text" [(ngModel)]="name" name="name" class="mb-4" placeholder="John Doe">
+            <label class="font-weight-bold mb-0">Nombre Usuario</label> <input type="text" [(ngModel)]="username" name="username" class="mb-4" placeholder="JohnyDoe">
+            <label class="font-weight-bold mb-0">Correo</label> <input type="text" [(ngModel)]="email" name="email" class="mb-4" placeholder="abc@xyz.com">
+            <label class="font-weight-bold mb-0">Teléfono</label> <input type="text" [(ngModel)]="phone" name="phone" class="mb-4" placeholder="(506) 1234567890"> 
+            <label class="font-weight-bold mb-0">Contraseña</label> <input type="password" [(ngModel)]="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" minlength="8"> <small class="text-muted">Minimo is 8 characteres</small>
+            <div class="form-group text-center">
+              <input #photoinput type="file" name="image" accept="image/*" class="d-none"
+                (change)="processFile($event)">
+              <img [src]="photoSelected || '../../../assets/upload.png'" alt="" style="width: 200px; height: 200px;"
+                class="img-fluid" (click)="photoinput.click()" srcset="">
+            </div>
+            <div class="custom-control custom-checkbox custom-control-inline mt-4"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input" checked> <label for="chk1" class="custom-control-label text-sm">Estoy de acuerdo a los términos y servicos, términos de pagos y política de privacidad.</label> </div>
+            <div class="row px-3 mt-5"> <button type="submit" class="btn btn-yellow px-3 mr-3">Registrar</button> <small class="text-muted mr-3 mt-2">o registrarse con</small><a (click)="signInWithGoogle()"><img class="icon mr-2 mt-2" src="https://i.imgur.com/j8ZGqG2.png"></a> <a (click)="signInWithFB()"><img class="icon ml-2 mt-2" src="https://i.imgur.com/AX2lVgH.png"></a> </div>
+         
+            <svg *ngIf="loading" class="loader" viewBox="0 0 24 24">
+              <circle class="loader__value" cx="12" cy="12" r="10" />
+              <circle class="loader__value" cx="12" cy="12" r="10" />
+              <circle class="loader__value" cx="12" cy="12" r="10" />
+              <circle class="loader__value" cx="12" cy="12" r="10" />
+              <circle class="loader__value" cx="12" cy="12" r="10" />
+              <circle class="loader__value" cx="12" cy="12" r="10" />
+            </svg>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row no-gutters justify-content-center fadeInDown">
+    <div class="col-md-6">
+      <div class="card">
+        <header class="card-header fadeIn first">
+          <a [routerLink]="['/login']" class="nav-link float-right btn btn-outline-primary mt-1">Log in</a>
+          <h4 class="card-title mt-2">Sign up</h4>
+        </header>
+        <article class="card-body">
+          <form (submit)="onRegisterSubmit()" enctype="multipart/form-data">
+            <div class="form-row">
+              <div class="col form-group">
+                <label>Name </label>
+                <input type="text" [(ngModel)]="name" name="name" class="form-control fadeIn second" id="name" placeholder="Enter Name">
+              </div>
+              <div class="col form-group">
+                <label for="username">Username</label>
+                <input type="text" [(ngModel)]="username" name="username" class="form-control fadeIn second" id="username"
+                  placeholder="Enter Username">
+              </div>
+            </div> 
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" [(ngModel)]="email" name="email" class="form-control fadeIn third" id="email"
+                aria-describedby="emailHelp" placeholder="Enter Email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" [(ngModel)]="password" name="password" class="form-control fadeIn third" id="password"
+                placeholder=" Enter Password">
+            </div>
+            <div class="form-group text-center">
+                <input #photoinput type="file" name="image" accept="image/*" class="d-none"
+                  (change)="processFile($event)">
+                <img [src]="photoSelected || '../../../assets/upload.png'" alt="" style="width: 200px; height: 200px;"
+                  class="img-fluid" (click)="photoinput.click()" srcset="">
+            </div>
+  
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block"> Register </button>
+            </div> 
+            <small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use
+              and Privacy Policy.</small>
+          </form>
+        </article> 
+        <div class="border-top card-body text-center">Have an account? <a [routerLink]="['/login']">Log In</a></div>
+      </div> 
+    </div> 
+    
+  </div>  -->
+
+  <!-- <div class="jumbotron bg-transparent text-center">
+    <div *ngIf="!user" class="card text-center">
+      <h6 class="card-header">
+        Social Login Demo
+      </h6>
+      <div class="card-block">
+        <h4 class="card-title">Not signed in</h4>
+        <p class="card-text">Sign in with</p>
+      </div>
+      <div class="card-block">
+        <button class="btn btn-social-icon btn-google" (click)="signInWithGoogle()"><span class="fa fa-google"></span></button>
+        <button class="btn btn-social-icon btn-facebook" (click)="signInWithFB()"><span class="fa fa-facebook"></span></button>
+      </div>
+    </div>
+    <div *ngIf="user" class="card text-center">
+      <h6 class="card-header">
+        Social Login Demo
+      </h6>
+      <div class="card-block"></div>
+      <img class="card-img-top img-responsive photo" src="{{ user.photoUrl }}">
+      <div class="card-block">
+        <h4 class="card-title">{{ user.name }}</h4>
+        <p class="card-text">{{ user.email }}</p>
+      </div>
+      <div class="card-block">
+        <button class="btn btn-danger" (click)="signOut()">Sign out</button>
+      </div>
+    </div>
+  </div> -->

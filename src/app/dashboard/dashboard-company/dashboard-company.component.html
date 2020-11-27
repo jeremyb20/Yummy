@@ -1,0 +1,250 @@
+<!-- <div class="">
+  <div class="form-group">
+    <input placeholder="¿A donde vás ?" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+  </div>
+  <div class="map" style="width:100%;height:500px" #map>
+    <agm-map [style.height.px]="map.offsetHeight" [latitude]="lat" [longitude]="lng" [zoom]="zoom" [scrollwheel]="true" [zoomControl]="true" (mapClick)="mapClicked($event)" [disableDefaultUI]="false">
+  
+      <agm-marker style="border-radius: 50%;" *ngFor="let m of markers; let i = index" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [agmFitBounds]="true" [iconUrl]="{url:m.photo, scaledSize:{height:45, width:40, radius:5}}">
+          
+        <agm-info-window *ngIf="!m.isDestination" #infowindow [isOpen]="showInfo" >
+          <h5>Es tu ubicación actual?</h5>
+          <p>Si no es la Ubicacion puedes cambiarla haciendo click</p>
+          <button class="btn" (click)="changePosition(m)" >Cambiar ubicación</button>
+          <button class="btn btn-success" (click)="savePosition()" >Guardar ubicación</button>
+        </agm-info-window>
+    
+        <agm-info-window *ngIf="m.isDestination" #infowindow [isOpen]="showInfoFinal" >
+          <h5>Es tu destino final?</h5>
+          <p>Si no es la Ubicación puedes cambiarla haciendo click</p>
+          <p><b>Distancia:</b>{{distance}} <strong>Km</strong></p>
+          <button class="btn" (click)="changePosition(m)" >Cambiar ubicación</button>
+          <button class="btn btn-success" (click)="createRoute()" >Ir ahora</button>
+        </agm-info-window>
+        
+      </agm-marker>
+    
+      <agm-direction *ngIf="generate" [renderOptions]="renderOptions" [markerOptions]="markerOptions" [origin]="origin" [destination]="destination"></agm-direction>
+    </agm-map>
+  </div>
+  
+  <div *ngIf="getTrack">
+    <p>Origin: {{origin.lat}}, {{origin.lng}}</p>
+    <p>Destination: {{destination.lat}}, {{destination.lng}}</p>
+  </div>
+  
+  <button class="btn btn-info " [disabled]="getTrack" (click)="setCurrentPosition()" >Mi Ubicación Actual</button> 
+  <button class="btn btn-info " [disabled]="getTrack" (click)="getDirection()">Selecionar mi destino</button> 
+</div> -->
+<!-- <div class="homeBody">
+  <button class="btn btn-block btn-yellow m-2">Comenzar Dia</button>
+  <div class="card-deck">
+    <div class="card">
+      <img class="card-img-top" src="..." alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Mis productos</h5>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="..." alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Añadir promociones</h5>
+        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="..." alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"></h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+</div>  -->
+
+
+<!-- <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" href="#profile" role="tab" data-toggle="tab">profile</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#buzz" role="tab" data-toggle="tab">buzz</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#references" role="tab" data-toggle="tab">references</a>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane fade in active" id="profile"><div class="homeBody">
+    <button class="btn btn-block btn-yellow m-2">Comenzar Dia</button>
+    <div class="card-deck">
+      <div class="card">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Mis productos</h5>
+          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Añadir promociones</h5>
+          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+    </div>
+  </div> </div>
+  <div role="tabpanel" class="tab-pane fade" id="buzz">bbbgdfgdfg</div>
+  <div role="tabpanel" class="tab-pane fade" id="references">cccdfgdfgdfg</div>
+</div> -->
+<div class="row justify-content-between mb-4 align-items-center mt-3">
+  <div class="col-xl-3 text-left">
+    <h2 class="page-heading">Hi,Welcome Back!</h2>
+    <p class="mb-0">Your restaurent admin template</p>
+            </div>
+            <div class="col-xl-9 mt-3 mt-xl-0">
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <h4 class="card-title">Track Order</h4>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" value="ORDER-84534598">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">Track</button>
+                                    </div>
+                                </div>
+                                <span class="d-block mt-1">Your order is now preparing</span>
+                            </div>
+                            <div class="col-md-7 p-0 mt-3 mt-md-0">
+                                <div class="steps">
+                                    <ul class="list-unstyled multi-steps">
+                                        <li>Ordered</li>
+                                        <li>Pending</li>
+                                        <li class="is-active">Preparing</li>
+                                        <li>Delivery</li>
+                                        <li>Received</li>
+                                    </ul>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+<section id="tabs" class="project-tab">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <nav>
+                  <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Project Tab 1</a>
+                      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Project Tab 2</a>
+                      <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Project Tab 3</a>
+                  </div>
+              </nav>
+              <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                      <table class="table" cellspacing="0">
+                          <thead>
+                              <tr>
+                                  <th>Project Name</th>
+                                  <th>Employer</th>
+                                  <th>Awards</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td><a href="#">Work 1</a></td>
+                                  <td>Doe</td>
+                                  <td>john@example.com</td>
+                              </tr>
+                              <tr>
+                                  <td><a href="#">Work 2</a></td>
+                                  <td>Moe</td>
+                                  <td>mary@example.com</td>
+                              </tr>
+                              <tr>
+                                  <td><a href="#">Work 3</a></td>
+                                  <td>Dooley</td>
+                                  <td>july@example.com</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                      <table class="table" cellspacing="0">
+                          <thead>
+                              <tr>
+                                  <th>Project Name</th>
+                                  <th>Employer</th>
+                                  <th>Time</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td><a href="#">Work 1</a></td>
+                                  <td>Doe</td>
+                                  <td>john@example.com</td>
+                              </tr>
+                              <tr>
+                                  <td><a href="#">Work 2</a></td>
+                                  <td>Moe</td>
+                                  <td>mary@example.com</td>
+                              </tr>
+                              <tr>
+                                  <td><a href="#">Work 3</a></td>
+                                  <td>Dooley</td>
+                                  <td>july@example.com</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                      <table class="table" cellspacing="0">
+                          <thead>
+                              <tr>
+                                  <th>Contest Name</th>
+                                  <th>Date</th>
+                                  <th>Award Position</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td><a href="#">Work 1</a></td>
+                                  <td>Doe</td>
+                                  <td>john@example.com</td>
+                              </tr>
+                              <tr>
+                                  <td><a href="#">Work 2</a></td>
+                                  <td>Moe</td>
+                                  <td>mary@example.com</td>
+                              </tr>
+                              <tr>
+                                  <td><a href="#">Work 3</a></td>
+                                  <td>Dooley</td>
+                                  <td>july@example.com</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
