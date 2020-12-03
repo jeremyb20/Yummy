@@ -66,19 +66,64 @@
         }
     }
 
+    @include media-breakpoint-up(md) {
+        .button {
+            background-color: transparent;
+            border-width: 0 1px 0 0;
+            font-size: 2.3em;
+            border-style: none solid none none;
+            border-color: transparent rgba(0, 0, 0, .25) transparent transparent;
+            -webkit-transition: background .25s ease-in-out;
+                    transition: background .25s ease-in-out;
+            box-shadow: 0 0 1px 1px rgba(255, 255, 255, .1) inset;
+            cursor: pointer;            
+            width: 65px;
+            height: 64px;
+            line-height: 64px;
+            text-align: center;
+            &.mail {
+                position: relative;
+                i {
+                    vertical-align: middle;
+                    color: #f7f7f7;
+                }
+                .badge {
+                    display: block;
+                    position: absolute;
+                    top: 10px;
+                    right: 0px;
+                    line-height: 17.5px;
+                    height: 18px;
+                    padding: 0 5px;
+                    font-family: Arial, sans-serif;
+                    color: white;
+                    background-color: #ff1f1f;
+                    text-shadow: 0 1px rgba(0, 0, 0, 0.25);
+                    border: 1px solid;
+                    border-radius: 10px;
+                    -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 1px rgba(0, 0, 0, 0.08);
+                    box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 1px rgba(0, 0, 0, 0.08);
+                    font-size: 13px;
+                }
+                &:hover {
+                    background-color: rgba(255, 255, 255, .0625);
+                }
+            }
+        }
+    }
+
     .button {
         background-color: transparent;
         border-width: 0 1px 0 0;
         font-size: 2.3em;
-        border-style: none solid none none;
-        border-color: transparent rgba(0, 0, 0, .25) transparent transparent;
+        border-style: none ;
+        border-color: none ;
         -webkit-transition: background .25s ease-in-out;
                 transition: background .25s ease-in-out;
-        box-shadow: 0 0 1px 1px rgba(255, 255, 255, .1) inset;
-        cursor: pointer;            
-        width: 65px;
-        height: 64px;
-        line-height: 64px;
+        box-shadow: none;            
+        width: 35px;
+        height: 34px;
+        line-height: 34px;
         text-align: center;
         &.mail {
             position: relative;
@@ -108,23 +153,8 @@
                 background-color: rgba(255, 255, 255, .0625);
             }
         }
-        &.Casino {
-            background-size: 35px 35px;
-            width: 65px;
-            height: 64px;
-            &:hover {
-                background-color: rgba(255, 255, 255, .0625);
-            }
-        }
-        &.Horses {
-            background-size: 35px 35px;
-            width: 65px;
-            height: 64px;
-            &:hover {
-                background-color: rgba(255, 255, 255, .0625);
-            }
-        }
     }
+
     .button-data {
         height: 64px;
         margin-right: 0;

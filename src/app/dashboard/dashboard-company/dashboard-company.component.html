@@ -112,33 +112,37 @@
   <div role="tabpanel" class="tab-pane fade" id="buzz">bbbgdfgdfg</div>
   <div role="tabpanel" class="tab-pane fade" id="references">cccdfgdfgdfg</div>
 </div> -->
-<div class="row justify-content-between mb-4 align-items-center mt-3">
+<div class="p-1 no-gutters justify-content-between mb-4 align-items-center mt-3">
   <div class="col-xl-3 text-left">
-    <h2 class="page-heading">Hi,Welcome Back!</h2>
-    <p class="mb-0">Your restaurent admin template</p>
+    <h2 class="page-heading">Hola, Bienvenido {{user.companyName}}!</h2>
+    <p class="mb-0">Tu restaurante administrador</p>
             </div>
             <div class="col-xl-9 mt-3 mt-xl-0">
                 <div class="card mb-0">
                     <div class="card-body">
-                        <h4 class="card-title">Track Order</h4>
-                        <div class="row">
+                        <h5 class="card-title">Nuevas Ordenes</h5>
+                        <div class="row no-gutters">
                             <div class="col-md-5">
                                 <div class="input-group">
                                     <input type="text" class="form-control" value="ORDER-84534598">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">Track</button>
+                                        <button class="btn btn-primary" type="button">Tomar Orden</button>
                                     </div>
                                 </div>
-                                <span class="d-block mt-1">Your order is now preparing</span>
+                                <span *ngIf="id ===1" class="d-block mt-1">Tu pedido se está Ordenando ahora</span>
+                                <span *ngIf="id ===2" class="d-block mt-1">Tu pedido está pendiente ahora</span>
+                                <span *ngIf="id ===3" class="d-block mt-1">Tu pedido se está preparando ahora</span>
+                                <span *ngIf="id ===4" class="d-block mt-1">Tu pedido se está entregando ahora</span>
+                                <span *ngIf="id ===5" class="d-block mt-1">Tu pedido está recibido</span>
                             </div>
                             <div class="col-md-7 p-0 mt-3 mt-md-0">
                                 <div class="steps">
                                     <ul class="list-unstyled multi-steps">
-                                        <li>Ordered</li>
-                                        <li>Pending</li>
-                                        <li class="is-active">Preparing</li>
-                                        <li>Delivery</li>
-                                        <li>Received</li>
+                                        <li [ngClass]="{'is-active': id === 1, 'position-relative':id ===1 }" (click)="stepTrackOrder(1)"><p><small>Ordenado</small></p></li>
+                                        <li [ngClass]="{'is-active': id === 2, 'position-relative':id ===2 }" (click)="stepTrackOrder(2)"><p><small>Pendiente</small></p></li>
+                                        <li [ngClass]="{'is-active': id === 3, 'position-relative':id ===3 }" (click)="stepTrackOrder(3)"><p><small>Preparando</small></p></li>
+                                        <li [ngClass]="{'is-active': id === 4, 'position-relative':id ===4 }" (click)="stepTrackOrder(4)"><p><small>Entrega</small></p></li>
+                                        <li [ngClass]="{'is-active': id === 5, 'position-relative':id ===5 }" (click)="stepTrackOrder(5)"><p><small>Recibido</small></p></li>
                                     </ul>
                                 </div> 
                             </div>
@@ -146,105 +150,251 @@
                     </div>
                 </div>
             </div>    
-        </div>
-<section id="tabs" class="project-tab">
-  <div class="container">
-      <div class="row">
-          <div class="col-md-12">
-              <nav>
-                  <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Project Tab 1</a>
-                      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Project Tab 2</a>
-                      <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Project Tab 3</a>
-                  </div>
-              </nav>
-              <div class="tab-content" id="nav-tabContent">
-                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                      <table class="table" cellspacing="0">
-                          <thead>
-                              <tr>
-                                  <th>Project Name</th>
-                                  <th>Employer</th>
-                                  <th>Awards</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr>
-                                  <td><a href="#">Work 1</a></td>
-                                  <td>Doe</td>
-                                  <td>john@example.com</td>
-                              </tr>
-                              <tr>
-                                  <td><a href="#">Work 2</a></td>
-                                  <td>Moe</td>
-                                  <td>mary@example.com</td>
-                              </tr>
-                              <tr>
-                                  <td><a href="#">Work 3</a></td>
-                                  <td>Dooley</td>
-                                  <td>july@example.com</td>
-                              </tr>
-                          </tbody>
-                      </table>
-                  </div>
-                  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                      <table class="table" cellspacing="0">
-                          <thead>
-                              <tr>
-                                  <th>Project Name</th>
-                                  <th>Employer</th>
-                                  <th>Time</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr>
-                                  <td><a href="#">Work 1</a></td>
-                                  <td>Doe</td>
-                                  <td>john@example.com</td>
-                              </tr>
-                              <tr>
-                                  <td><a href="#">Work 2</a></td>
-                                  <td>Moe</td>
-                                  <td>mary@example.com</td>
-                              </tr>
-                              <tr>
-                                  <td><a href="#">Work 3</a></td>
-                                  <td>Dooley</td>
-                                  <td>july@example.com</td>
-                              </tr>
-                          </tbody>
-                      </table>
-                  </div>
-                  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                      <table class="table" cellspacing="0">
-                          <thead>
-                              <tr>
-                                  <th>Contest Name</th>
-                                  <th>Date</th>
-                                  <th>Award Position</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr>
-                                  <td><a href="#">Work 1</a></td>
-                                  <td>Doe</td>
-                                  <td>john@example.com</td>
-                              </tr>
-                              <tr>
-                                  <td><a href="#">Work 2</a></td>
-                                  <td>Moe</td>
-                                  <td>mary@example.com</td>
-                              </tr>
-                              <tr>
-                                  <td><a href="#">Work 3</a></td>
-                                  <td>Dooley</td>
-                                  <td>july@example.com</td>
-                              </tr>
-                          </tbody>
-                      </table>
+            <div class="row no-gutters">
+                    
+
+              <div class="col-lg-12">
+                  <div class="card">
+                      <div class="card-body">
+                          <h4 class="card-title">Listas de ordenes</h4>
+                          <div class="table-responsive">
+                              <table class="table verticle-middle table-responsive-lg mb-0">
+                                  <thead>
+                                      <tr>
+                                          <th scope="col">ID</th>
+                                          <th scope="col">Orden</th>
+                                          <th scope="col">Cliente</th>
+                                          <th scope="col">Lugar</th>
+                                          <th scope="col">Entrega</th>
+                                          <th scope="col">Cantidad</th>
+                                          <th scope="col">Precio</th>
+                                          <th scope="col">Status</th>
+                                          <th scope="col">Accion</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>54565</td>
+                                          <td>Fresh Crostini</td>
+                                          <td>Adam Smith</td>
+                                          <td>Gulshan</td>
+                                          <td>10:20</td>
+                                          <td>5</td>
+                                          <td>$34</td>
+                                          <td><span class="badge badge-xs badge-primary">Pendiente</span>
+                                          </td>
+                                          <td>
+                                              <span>
+                                                  <a class="mr-4" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-pencil-alt color-muted"></i> </a>
+                                                  <a data-toggle="tooltip" data-placement="top" title="Close" data-original-title="Close"><i class="fas fa-times color-danger"></i></a>
+                                              </span>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td>54565</td>
+                                          <td>Multigrain Hot Cereal</td>
+                                          <td>John Doe</td>
+                                          <td>Baridhara</td>
+                                          <td>3:00</td>
+                                          <td>4</td>
+                                          <td>$ 87</td>
+                                          <td><span class="badge badge-xs badge-success">Entregado</span>
+                                          </td>
+                                          <span>
+                                            <a class="mr-4" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-pencil-alt color-muted"></i> </a>
+                                            <a data-toggle="tooltip" data-placement="top" title="Close" data-original-title="Close"><i class="fas fa-times color-danger"></i></a>
+                                        </span>
+                                      </tr>
+                                      <tr>
+                                          <td>54235</td>
+                                          <td>French Fry</td>
+                                          <td>Maximillian</td>
+                                          <td>Khilgaon</td>
+                                          <td>2:00</td>
+                                          <td>6</td>
+                                          <td>$ 65</td>
+                                          <td><span class="badge badge-xs badge-dark">Cancelado</span>
+                                          </td>
+                                          <span>
+                                            <a class="mr-4" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-pencil-alt color-muted"></i> </a>
+                                            <a data-toggle="tooltip" data-placement="top" title="Close" data-original-title="Close"><i class="fas fa-times color-danger"></i></a>
+                                        </span>
+                                      </tr>
+                                      <tr>
+                                          <td>54587</td>
+                                          <td>Fried Egg Sandwich</td>
+                                          <td>John Johnson</td>
+                                          <td>Gulshan</td>
+                                          <td>11:00</td>
+                                          <td>3</td>
+                                          <td>$ 56</td>
+                                          <td><span class="badge badge-xs badge-primary">Pendiente</span>
+                                          </td>
+                                          <span>
+                                            <a class="mr-4" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-pencil-alt color-muted"></i> </a>
+                                            <a data-toggle="tooltip" data-placement="top" title="Close" data-original-title="Close"><i class="fas fa-times color-danger"></i></a>
+                                        </span>
+                                      </tr>
+                                      <tr>
+                                          <td>54521</td>
+                                          <td>Pizza</td>
+                                          <td>Mike Hussy</td>
+                                          <td>Banani</td>
+                                          <td>12:00</td>
+                                          <td>5</td>
+                                          <td>$ 65</td>
+                                          <td><span class="badge badge-xs badge-warning">Pendiente</span>
+                                          </td>
+                                          <span>
+                                            <a class="mr-4" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-pencil-alt color-muted"></i> </a>
+                                            <a data-toggle="tooltip" data-placement="top" title="Close" data-original-title="Close"><i class="fas fa-times color-danger"></i></a>
+                                        </span>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
-      </div>
-  </div>
-</section>
+            <div id="tabs" class="col-xl-9 mt-3 mt-xl-0 project-tab">
+                  <div class="row no-gutters">
+                      <div class="col-md-12">
+                          <nav>
+                              <ul class="nav nav-tabs nav-pills nav-fill" id="nav-tab" role="tablist">
+                                  <li class="nav-item"><a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Mis Menus</a></li>
+                                  <li class="nav-item"><a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Calendario</a></li>
+                                  <li class="nav-item"><a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Historial</a></li>
+                              </ul>
+                          </nav>
+                          <div class="tab-content" id="nav-tabContent">
+                              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <div class="row no-gutters">
+                                  <div class="col-xl-4 col-lg-6 col-xxl-6">
+                                    <div class="card top_menu_widget">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Top Menus</h4><button class="btn btn-info" disabled="disabled">Add new</button>
+                                            <div class="media border-bottom pt-3 pb-3">
+                                                <img width="50" height="50" alt="#" class="mr-3" src="../../assets/images/menu/menu1.png">
+                                                <div class="media-body">
+                                                    <h5 class="mb-1 mt-sm-1 mt-0">Fried Egg Sandwich</h5>
+                                                    <span>Egg, Sandwich</span>
+                                                </div>
+                                                <h5 class="badge-lighten-primary">$268</h5>
+                                            </div>
+                                            <div class="media border-bottom pt-3 pb-3">
+                                                <img width="50" height="50" alt="#" class="mr-3" src="../../assets/images/menu/menu2.png">
+                                                <div class="media-body">
+                                                    <h5 class="mb-1 mt-sm-1 mt-0">French Crostini</h5>
+                                                    <span>French, Spicy</span>
+                                                </div>
+                                                <h5 class="badge-lighten-success">$268</h5>
+                                            </div>
+                                            <div class="media border-bottom pt-3 pb-3">
+                                                <img width="50" height="50" alt="#" class="mr-3" src="../../assets/images/menu/menu3.png">
+                                                <div class="media-body">
+                                                    <h5 class="mb-1 mt-sm-1 mt-0">Redwine and Colddrinks</h5>
+                                                    <span>Drinks, Wine</span>
+                                                </div>
+                                                <h5 class="badge-lighten-info">$268</h5>
+                                            </div>
+                                            <div class="media border-bottom pt-3 pb-3">
+                                                <img width="50" height="50" alt="#" class="mr-3" src="../../assets/images/menu/menu4.png">
+                                                <div class="media-body">
+                                                    <h5 class="mb-1 mt-sm-1 mt-0">Multigrain Hot Cereal</h5>
+                                                    <span>Hot, Spicy</span>
+                                                </div>
+                                                <h5 class="badge-lighten-warning">$268</h5>
+                                            </div>
+                                            <div class="media border-bottom pt-3 pb-3">
+                                                <img width="50" height="50" alt="#" class="mr-3" src="../../assets/images/menu/menu5.png">
+                                                <div class="media-body">
+                                                    <h5 class="mb-1 mt-sm-1 mt-0">Lemon Yogurt Parfait</h5>
+                                                    <span>Juice, Cold</span>
+                                                </div>
+                                                <h5 class="badge-lighten-danger">$268</h5>
+                                            </div>
+                                            <div class="media pt-3 pb-3">
+                                                <img width="50" height="50" alt="#" class="mr-3" src="../../assets/images/menu/menu6.png">
+                                                <div class="media-body">
+                                                    <h5 class="mb-1 mt-sm-1 mt-0">Branch Special</h5>
+                                                    <span>Hot, Spicy</span>
+                                                </div>
+                                                <h5 class="badge-lighten-primary">$268</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-4 col-xl-4 col-lg-6 col-xxl-6">
+                                    <div class="card">
+                                      <img class="card-img-top" src="../../assets/images/menu/menu6.png" alt="Card image cap">
+                                      <div class="card-body">
+                                        <h5 class="card-title"></h5>
+                                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                      </div>
+                                    </div>
+                                </div>
+                                </div>
+                              </div>
+                              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                  <table class="table" cellspacing="0">
+                                      <thead>
+                                          <tr>
+                                              <th>Project Name</th>
+                                              <th>Employer</th>
+                                              <th>Time</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          <tr>
+                                              <td><a href="#">Work 1</a></td>
+                                              <td>Doe</td>
+                                              <td>john@example.com</td>
+                                          </tr>
+                                          <tr>
+                                              <td><a href="#">Work 2</a></td>
+                                              <td>Moe</td>
+                                              <td>mary@example.com</td>
+                                          </tr>
+                                          <tr>
+                                              <td><a href="#">Work 3</a></td>
+                                              <td>Dooley</td>
+                                              <td>july@example.com</td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                  <table class="table" cellspacing="0">
+                                      <thead>
+                                          <tr>
+                                              <th>Contest Name</th>
+                                              <th>Date</th>
+                                              <th>Award Position</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          <tr>
+                                              <td><a href="#">Work 1</a></td>
+                                              <td>Doe</td>
+                                              <td>john@example.com</td>
+                                          </tr>
+                                          <tr>
+                                              <td><a href="#">Work 2</a></td>
+                                              <td>Moe</td>
+                                              <td>mary@example.com</td>
+                                          </tr>
+                                          <tr>
+                                              <td><a href="#">Work 3</a></td>
+                                              <td>Dooley</td>
+                                              <td>july@example.com</td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+            </div>
+        </div>

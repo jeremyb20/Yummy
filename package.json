@@ -40,6 +40,7 @@
     "angularx-qrcode": "^10.0.10",
     "angularx-social-login": "^3.4.1",
     "bootstrap": "^4.5.3",
+    "fullcalendar": "3.9.0",
     "jquery": "^3.5.1",
     "marked": "^1.1.1",
     "moment": "^2.29.0",

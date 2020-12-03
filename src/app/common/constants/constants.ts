@@ -14,4 +14,12 @@ export const UserState = [
     {Id: 3, IS_COMPANY: true}
 ]
 
+export type Appointment = {
+    id?: string;
+    start?: Date;
+    end?: Date;
+    title?: string;
+    allDay?: boolean;
+  }
+
 export const TimeoutSeconds: number = 95 * 60;

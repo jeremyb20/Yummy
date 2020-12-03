@@ -42,6 +42,7 @@ export class DashboardCompanyComponent implements OnInit {
   confirmData: any;
   origin : any;
   destination : any;
+  id: number = 1;
   public renderOptions = {
     suppressMarkers: true,
 }
@@ -294,6 +295,13 @@ export class DashboardCompanyComponent implements OnInit {
 
   roundToTwo(num) {    
     return num.toFixed(2);
+  }
+
+
+  //Track order --
+
+  stepTrackOrder(step: number){
+    this.id = step;
   }
 
 }
