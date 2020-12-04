@@ -18,6 +18,7 @@ declare const google: any;
 export class DashboardCompanyComponent implements OnInit {
   private localUserSubscription : Subscription;
   public searchControl: FormControl;
+  private mediaSubscription: Subscription;
 
   zoom: number = 12;
   lat: number = 9.93040049002793;
@@ -66,6 +67,10 @@ export class DashboardCompanyComponent implements OnInit {
       this.userLogged = this.companyService.getLocalCompany()
       this.user = JSON.parse(this.userLogged);
       this.setCurrentPosition();
+
+      this.mediaSubscription = this.media.subscribeMedia().subscribe(media => {
+        this.Media = media;
+      });
   }
 
   ngOnInit() {

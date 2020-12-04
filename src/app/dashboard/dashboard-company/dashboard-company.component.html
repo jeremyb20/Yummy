@@ -161,7 +161,7 @@
                           <h4 class="card-title">Listas de ordenes</h4>
                           <div class="table-responsive">
                               <table class="table verticle-middle table-responsive-lg mb-0">
-                                  <thead>
+                                  <thead class="text-center">
                                       <tr>
                                           <th scope="col">ID</th>
                                           <th scope="col">Orden</th>
@@ -174,7 +174,7 @@
                                           <th scope="col">Accion</th>
                                       </tr>
                                   </thead>
-                                  <tbody>
+                                  <tbody class="text-center">
                                       <tr>
                                           <td>54565</td>
                                           <td>Fresh Crostini</td>
@@ -259,7 +259,7 @@
                   </div>
               </div>
           </div>
-            <div id="tabs" class="col-xl-9 mt-3 mt-xl-0 project-tab">
+            <div id="tabs" class="col-xl-12 mt-3 mt-xl-0 project-tab">
                   <div class="row no-gutters">
                       <div class="col-md-12">
                           <nav>
@@ -272,7 +272,7 @@
                           <div class="tab-content" id="nav-tabContent">
                               <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                 <div class="row no-gutters">
-                                  <div class="col-xl-4 col-lg-6 col-xxl-6">
+                                  <div class="col-xl-7 col-lg-6 col-xxl-6">
                                     <div class="card top_menu_widget">
                                         <div class="card-body">
                                             <h4 class="card-title">Top Menus</h4><button class="btn btn-info" disabled="disabled">Add new</button>
@@ -327,8 +327,8 @@
                                         </div>
                                     </div>
                                   </div>
-                                  <div class="col-sm-4 col-xl-4 col-lg-6 col-xxl-6">
-                                    <div class="card">
+                                  <div class="col-sm-4 col-xl-5 col-lg-6 col-xxl-6">
+                                    <div *ngIf="!Media.IsMobile" class="card">
                                       <img class="card-img-top" src="../../assets/images/menu/menu6.png" alt="Card image cap">
                                       <div class="card-body">
                                         <h5 class="card-title"></h5>
