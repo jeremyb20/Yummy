@@ -30,6 +30,7 @@ export class DashboardCompanyComponent implements OnInit, OnDestroy {
   Media: MediaResponse;
   id: number = 1;
   myfoodMenu: NewMenuResponse[] = [];
+  showPanelMenuItem:any;
   timeSeconds: number =  6000;
   file : File;
   photoSelected: String | ArrayBuffer;
@@ -66,12 +67,17 @@ export class DashboardCompanyComponent implements OnInit, OnDestroy {
     this.companyService.getMyMenuList(this.user.id).subscribe(data => {
       if(data.length>0) {
         this.myfoodMenu = data;
+        this.showPanelMenuItem = this.myfoodMenu.slice(-1).pop();
       }
     },
     error => {
       $('#newMenuModal').modal('hide');
       this._notificationSvc.warning('Hola '+this.user.companyName+'', 'Ocurrio un error favor contactar a soporte o al administrador del sitio', 6000);
     });
+  }
+
+  showPanelMenu(item:any) {
+    this.showPanelMenuItem = item;
   }
 
 
