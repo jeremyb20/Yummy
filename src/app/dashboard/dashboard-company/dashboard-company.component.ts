@@ -1,322 +1,137 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from "@angular/forms";
-import { MapsAPILoader } from '@agm/core';
-import { Subscription } from 'rxjs';
+import { Component, ElementRef, NgZone, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Subscription, from } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { MediaResponse, MediaService } from '../../common/services/media.service';
 import { darkStyle, lightStyle } from '../../common/constants/map-theme';
 import * as moment from 'moment';
 import { CompanyService } from 'src/app/common/services/company.service';
-
+import { NewMenuResponse } from './dashboard-company-response'
+import { NotificationService } from 'src/app/common/services/notification.service';
+declare var $: any;
 declare const google: any; 
+
+interface HtmlInputEvent extends Event {
+  target: HTMLInputElement & EventTarget
+}
 
 @Component({
   selector: 'app-dashboard-company',
   templateUrl: './dashboard-company.component.html',
   styleUrls: ['./dashboard-company.component.scss']
 })
-export class DashboardCompanyComponent implements OnInit {
-  private localUserSubscription : Subscription;
-  public searchControl: FormControl;
+export class DashboardCompanyComponent implements OnInit, OnDestroy {
   private mediaSubscription: Subscription;
-
-  zoom: number = 12;
-  lat: number = 9.93040049002793;
-  lng: number = -84.09062837772197;
-  distance: number;
-  previous;
-  coords: any;
-  located: boolean;
+  @Input() cost;
+  newMenuForm: FormGroup;
+  submitted = false;
   userLogged: any;
   user : any;
-  end_address: string;
-  duration: string;
-  start_address: string;
-  showInfo: boolean = true;
-  addDestiny: boolean = false;
-  generate: boolean = false;
-  getTrack: boolean = false;
-  showInfoFinal: boolean = false;
-  trackingRoute: boolean = false;
-  markers: marker[] = [];
   Media: MediaResponse;
-  confirmData: any;
-  origin : any;
-  destination : any;
   id: number = 1;
-  public renderOptions = {
-    suppressMarkers: true,
-}
+  myfoodMenu: NewMenuResponse[] = [];
+  timeSeconds: number =  6000;
+  file : File;
+  photoSelected: String | ArrayBuffer;
 
-  public markerOptions = {
-      origin: {
-          icon: 'https://i.imgur.com/iYIaFyb.png',
-          draggable: false,
-      },
-      destination: {
-          icon: 'https://i.imgur.com/iYIaFyb.png',
-          opacity: 0.8,
-      },
-  }
+  hideMsg: boolean = false; 
+  ShowMsg: string;
+
 
   @ViewChild("search")
   public searchElementRef: ElementRef;
 
-  constructor(private companyService: CompanyService, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private media: MediaService) {
-      this.located = false;
+  constructor(private companyService: CompanyService, private media: MediaService, private formBuilder: FormBuilder, private _notificationSvc: NotificationService) {
       this.userLogged = this.companyService.getLocalCompany()
       this.user = JSON.parse(this.userLogged);
-      this.setCurrentPosition();
 
       this.mediaSubscription = this.media.subscribeMedia().subscribe(media => {
         this.Media = media;
       });
+
+      this.getMyListMenu()
   }
+
+  get f() { return this.newMenuForm.controls; }
 
   ngOnInit() {
-     //create search FormControl
-     this.searchControl = new FormControl();
-    
-     //set current position
-
-      //load Places Autocomplete
-    // this.mapsAPILoader.load().then(() => {
-    //   let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-    //     componentRestrictions: { country: 'CR' }
-    //   });
-    //   autocomplete.addListener("place_changed", () => {
-    //     this.ngZone.run(() => {
-    //       //get the place result
-    //       let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-  
-    //       //verify result
-    //       if (place.geometry === undefined || place.geometry === null) {
-    //         return;
-    //       }
-
-    //       this.zoom = 12;
-
-    //       this.markers.push({
-    //         lat: place.geometry.location.lat(),
-    //         lng: place.geometry.location.lng(),
-    //         draggable: false,
-    //         isDestination: true,
-    //         photo: 'https://cdn.worldvectorlogo.com/logos/google-maps-2020-icon.svg'
-    //       });
-    //       this.showInfoFinal = true;
-    //       this.addDestiny = true;
-    //       this.generate = true;
-    //       this.origin = { lat: this.markers[0].lat, lng: this.markers[0].lng }
-    //       this.destination = { lat: this.markers[1].lat, lng: this.markers[1].lng }
-          
-    //       this.distance = this.calcDistance(this.markers[0].lat, this.markers[0].lng, this.markers[1].lat, this.markers[1].lng );
-    //       this.distance = this.roundToTwo(this.distance/1000);
-    //     });
-    //   });
-    // });
-  }
-
-  setCurrentPosition() {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.zoom = 17;
-
-        this.markers.push({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-          draggable: false,
-          isDestination: false,
-          photo: this.user.photo
-        });
-        this.showInfo = true;
-        this.addDestiny = false;
-        this.generate = false;
-      });
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  }
-
-  clickedMarker(infowindow) {
-    if (this.previous != undefined) {
-      if( this.previous.close() != undefined)
-          this.previous.close();
-    }
-    this.previous = infowindow;
-  }
-  
-  mapClicked($event: MouseEvent) {
-    var event: any;
-      event = $event
-    this.showInfo = true;
-    if(this.addDestiny){
-      if (this.markers.length < 2) {
-        this.markers.push({
-          lat: event.coords.lat,
-          lng: event.coords.lng,
-          draggable: false,
-          isDestination: true,
-          photo: 'https://cdn.worldvectorlogo.com/logos/google-maps-2020-icon.svg'
-        });
-        this.zoom = 20;
-        this.generate = true;
-        this.showInfo = false;
-        this.showInfoFinal = true;
-        this.origin = { lat: this.markers[0].lat, lng: this.markers[0].lng }
-        this.destination = { lat: this.markers[1].lat, lng: this.markers[1].lng }
-        this.distance = this.calcDistance(this.markers[0].lat, this.markers[0].lng, this.markers[1].lat, this.markers[1].lng );
-        this.distance = this.roundToTwo(this.distance/1000);
-      }
-    }else{
-      if (this.markers.length < 1) {
-        this.markers.push({
-          lat: event.coords.lat,
-          lng: event.coords.lng,
-          draggable: false,
-          isDestination: false,
-          photo: this.user.photo
-        });
-      }
-    }
-    
-  }
-
-  markerDragEnd(m: marker, $event: MouseEvent) {
-    console.log('dragEnd', m, $event);
-  }
-
-  changePosition(mPosition: any){
-    if(mPosition.isDestination){
-      if (this.markers.length > 1) {
-        this.generate = false;
-        this.markers.splice(-1,1);
-      }
-    }else{
-      if (this.markers.length > 0) {
-        this.markers.shift();
-      }
-    }
-    this.showInfo = false;
-   
-  }
-
-  savePosition() {
-    this.showInfo = false;
-  }
-
-  getDirection() {
-    this.addDestiny = true;
-  }
-
-  createRoute(){
-    this.generate = true;
-    this.showInfoFinal = false;
-    this.origin = { lat: this.markers[0].lat, lng: this.markers[0].lng }
-    this.destination = { lat: this.markers[1].lat, lng: this.markers[1].lng }
-
-    var directionsService = new google.maps.DirectionsService();
-    var haight = new google.maps.LatLng(this.markers[0].lat, this.markers[0].lng);
-    var oceanBeach = new google.maps.LatLng(this.markers[1].lat, this.markers[1].lng);
-    var request = {
-        origin: haight,
-        destination: oceanBeach,
-        travelMode: google.maps.TravelMode.DRIVING
-    };
-    directionsService.route(request, (response, status) => {
-      if (status == 'OK') {
-        this.confirmData = response.routes[0].legs[0]; 
-        this.distance = this.confirmData.distance.text;
-        this.duration = this.confirmData.duration.text;
-        this.end_address = this.confirmData.end_address;
-        this.start_address = this.confirmData.start_address;
-        
-        let costFinal = 1600;
-        let endDirection = '<p><b>Dirrecion final:</b>' + this.end_address; + '<br></p>';
-        let startDirection = '<p><b>Dirrecion inicial:</b>' + this.start_address; + '<br></p>';
-        let distance = '<p><b>Distancia:</b>' + this.distance; + '<br></p>';
-        let timeArrival = '<p><b>Tiempo de llegada:</b>' + this.duration + '<br></p>';
-        let cost = '<p><b>Costo:</b> ₡' + costFinal + '<br></p>';
-        let msg = distance + cost + timeArrival + startDirection + endDirection; 
-        
-        Swal.fire({
-          title: "Confirmación de viaje",
-          html: msg,
-          showCancelButton: true,
-          allowEscapeKey: false,
-          confirmButtonText: 'OK',
-          cancelButtonText: 'No',
-          allowOutsideClick: false,
-          buttonsStyling: false,
-          reverseButtons: true,
-          position: 'top',
-          padding: 0,
-          customClass: { container: 'sw-leave-container', cancelButton: 'btn btn-warning border col-auto mr-auto', confirmButton: 'col-auto btn btn-info' }
-        })
-        .then((result) => {
-            if (result.value){
-              this.trackingRoute = true;
-              window.open('https://www.google.com/maps/dir/?api=1&origin='+this.markers[0].lat+','+this.markers[0].lng+'&destination='+this.markers[1].lat+','+this.markers[1].lng+'&travelmode=driving','_blank');
-            }
-
-            else
-              console.log('somethin happened')
-
-              if(this.trackingRoute){
-                this.trackMe();
-              }  
-        });
-      }
+    this.newMenuForm = this.formBuilder.group({
+      foodName: ['', Validators.required],
+      cost: ['', [Validators.minLength(3),Validators.required,Validators.pattern(/\d/)]],
+      description: ['', Validators.required],
     });
-
   }
 
-  trackMe() {
-    this.getTrack = true;
-    if (navigator.geolocation) {
-      // this.isTracking = true;
-      navigator.geolocation.watchPosition((position) => {
-        this.showTrackingPosition(position);
-      });
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  }
-
-  showTrackingPosition(position) {
-    // this.currentLat = position.coords.latitude;
-    // this.currentLong = position.coords.longitude;
-
-    this.origin = { lat: position.coords.latitude, lng: position.coords.longitude }
-    this.destination = { lat: this.markers[1].lat, lng: this.markers[1].lng }
-    this.lat = position.coords.latitude;
-    this.lng = position.coords.longitude;
-    this.zoom = 12;
-    
-  }
-
-  calcDistance (fromLat, fromLng, toLat, toLng) {
-    return google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(fromLat, fromLng), new google.maps.LatLng(toLat, toLng));
-  }
-
-  roundToTwo(num) {    
-    return num.toFixed(2);
+  getMyListMenu(){
+    this.companyService.getMyMenuList(this.user.id).subscribe(data => {
+      if(data.length>0) {
+        this.myfoodMenu = data;
+      }
+    },
+    error => {
+      $('#newMenuModal').modal('hide');
+      this._notificationSvc.warning('Hola '+this.user.companyName+'', 'Ocurrio un error favor contactar a soporte o al administrador del sitio', 6000);
+    });
   }
 
 
-  //Track order --
+  sendInfo() {
+    this._notificationSvc.warning('Hello World', 'This is an information', 6000);
+  }
+
+  //Track order ticket
 
   stepTrackOrder(step: number){
     this.id = step;
   }
 
-}
+  newMenuSubmit() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.newMenuForm.invalid) {
+        return;
+    }
+    var newMenu = {
+      foodName: this.f.foodName.value,
+      description: this.f.description.value,
+      cost: this.f.cost.value,
+      idCompany: this.user.id
+    }
 
-interface marker {
-	lat: number;
-	lng: number;
-	label?: string;
-  draggable: boolean;
-  isDestination?: boolean;
-  photo?: any;
+    this.companyService.registerNewMenu(newMenu,this.file).subscribe(data => {
+      if(data.success) {
+        $('#newMenuModal').modal('hide');
+        this._notificationSvc.success('Hola '+this.user.companyName+'', data.msg, 6000);
+        this.getMyListMenu();
+      } else {
+        $('#newMenuModal').modal('hide');
+        this._notificationSvc.warning('Hola '+this.user.companyName+'', data.msg, 6000);
+      }
+    },
+    error => {
+      $('#newMenuModal').modal('hide');
+      this._notificationSvc.warning('Hola '+this.user.companyName+'', 'Ocurrio un error favor contactar a soporte o al administrador del sitio', 6000);
+    });
+  }
+
+  ngOnDestroy() {
+    if(this.mediaSubscription){
+      this.mediaSubscription.unsubscribe();
+    }
+  }
+
+  processFile(event: HtmlInputEvent): void {
+
+    if(event.target.files && event.target.files[0]){
+      this.file = <File>event.target.files[0];
+
+      const reader = new FileReader();
+
+      reader.onload = e => this.photoSelected = reader.result;
+      reader.readAsDataURL(this.file);
+    }
+  }
+
+
 }
 

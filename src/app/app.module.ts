@@ -35,6 +35,8 @@ import { DashboardDriverComponent } from './dashboard/dashboard-driver/dashboard
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { NotificationService } from './common/services/notification.service';
+import { NotificationComponent } from './notification/notification.component';
 
 export function tokenGetter() {
   return localStorage.getItem("id_token");
@@ -63,7 +65,8 @@ export function tokenGetter() {
     ProfileUserComponent,
     MainLayoutComponent,
     LoginLayoutComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +90,7 @@ export function tokenGetter() {
     }),
     AgmDirectionModule
   ],
-  providers: [AuthServices, {
+  providers: [NotificationService,AuthServices, {
     provide: 'SocialAuthServiceConfig',
     useValue: {
       autoLogin: false,

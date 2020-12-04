@@ -49,6 +49,33 @@ export class CompanyService {
     }
   }
 
+  registerNewMenu(menu,  photo:any):Observable<any> {
+    const fd = new FormData();
+    fd.append('foodName',menu.foodName);
+    fd.append('description',menu.description);
+    fd.append('cost',menu.cost);
+    fd.append('idCompany',menu.idCompany);
+    fd.append('image', photo);
+
+    if(this.isDev) {
+      return this.httpClient.post<any>('http://localhost:8080/company/register/newMenu', fd);
+    }else{
+      return this.httpClient.post<any>('company/register/newMenu', fd);
+    }
+  }
+
+  getMyMenuList(id):Observable<any> {
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    if (this.isDev) {
+      return this.httpClient.get<any>('http://localhost:8080/company/getAllMenuList/' + id);
+    } else {
+      return this.httpClient.get<any>('company/getAllMenuList/' + id);
+    }
+  }
+
 //   getUsers() {
 //     let headers = new Headers();
 //     this.loadToken();

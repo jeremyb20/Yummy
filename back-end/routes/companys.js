@@ -76,16 +76,6 @@ router.post('/register', async(req, res, next) => {
   });
 });
 
-router.get('/profile/getAllUsers', function(req, res){
-    Company.find({}, function(err, users){
-    if(err){
-      res.send('something went really wrong');
-      next();
-    }
-    res.json(users)
-  });
-});
-
 // Authenticate
 router.post('/authenticate', (req, res, next) => {
   const email = req.body.email;
@@ -123,6 +113,51 @@ router.post('/authenticate', (req, res, next) => {
     });
   });
 });
+
+router.post('/register/newMenu', async(req, res, next) => {
+  const obj = JSON.parse(JSON.stringify(req.body));
+  
+  const result = await cloudinary.uploader.upload(req.file != undefined? req.file.path: obj.image);
+  let newMenu = {
+    foodName: obj.foodName,
+    description: obj.description,
+    cost: obj.cost,
+    idCompany: obj.idCompany,
+    photo: result.url == undefined? obj.image : result.url
+  };
+  Company.findOneAndUpdate({ _id: req.body.idCompany }, { $push: { newMenu: newMenu  } },async(err, menu, done) => {
+    try {
+      res.json({ success: true, msg: 'Nuevo menu registrado exitosamente..!' });
+      } catch (err) {
+        res.json({success: false, msg: err});
+        next(err);
+      }
+    });
+});
+
+
+
+// router.get('/profile/getAllUsers', function(req, res){
+//     Company.find({}, function(err, users){
+//     if(err){
+//       res.send('something went really wrong');
+//       next();
+//     }
+//     res.json(users)
+//   });
+// });
+
+router.get('/getAllMenuList/:id', function(req, res){
+  var id = req.params.id;
+  Company.findById(id, function(err, results){
+    if(err){
+      res.send('something went really wrong');
+      next();
+    }
+    res.json(results.newMenu)
+  });
+});
+
 
 // Profile
 router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {

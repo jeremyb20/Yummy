@@ -1,117 +1,3 @@
-<!-- <div class="">
-  <div class="form-group">
-    <input placeholder="¿A donde vás ?" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
-  </div>
-  <div class="map" style="width:100%;height:500px" #map>
-    <agm-map [style.height.px]="map.offsetHeight" [latitude]="lat" [longitude]="lng" [zoom]="zoom" [scrollwheel]="true" [zoomControl]="true" (mapClick)="mapClicked($event)" [disableDefaultUI]="false">
-  
-      <agm-marker style="border-radius: 50%;" *ngFor="let m of markers; let i = index" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [agmFitBounds]="true" [iconUrl]="{url:m.photo, scaledSize:{height:45, width:40, radius:5}}">
-          
-        <agm-info-window *ngIf="!m.isDestination" #infowindow [isOpen]="showInfo" >
-          <h5>Es tu ubicación actual?</h5>
-          <p>Si no es la Ubicacion puedes cambiarla haciendo click</p>
-          <button class="btn" (click)="changePosition(m)" >Cambiar ubicación</button>
-          <button class="btn btn-success" (click)="savePosition()" >Guardar ubicación</button>
-        </agm-info-window>
-    
-        <agm-info-window *ngIf="m.isDestination" #infowindow [isOpen]="showInfoFinal" >
-          <h5>Es tu destino final?</h5>
-          <p>Si no es la Ubicación puedes cambiarla haciendo click</p>
-          <p><b>Distancia:</b>{{distance}} <strong>Km</strong></p>
-          <button class="btn" (click)="changePosition(m)" >Cambiar ubicación</button>
-          <button class="btn btn-success" (click)="createRoute()" >Ir ahora</button>
-        </agm-info-window>
-        
-      </agm-marker>
-    
-      <agm-direction *ngIf="generate" [renderOptions]="renderOptions" [markerOptions]="markerOptions" [origin]="origin" [destination]="destination"></agm-direction>
-    </agm-map>
-  </div>
-  
-  <div *ngIf="getTrack">
-    <p>Origin: {{origin.lat}}, {{origin.lng}}</p>
-    <p>Destination: {{destination.lat}}, {{destination.lng}}</p>
-  </div>
-  
-  <button class="btn btn-info " [disabled]="getTrack" (click)="setCurrentPosition()" >Mi Ubicación Actual</button> 
-  <button class="btn btn-info " [disabled]="getTrack" (click)="getDirection()">Selecionar mi destino</button> 
-</div> -->
-<!-- <div class="homeBody">
-  <button class="btn btn-block btn-yellow m-2">Comenzar Dia</button>
-  <div class="card-deck">
-    <div class="card">
-      <img class="card-img-top" src="..." alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Mis productos</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src="..." alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Añadir promociones</h5>
-        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src="..." alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title"></h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-  </div>
-</div>  -->
-
-
-<!-- <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" href="#profile" role="tab" data-toggle="tab">profile</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#buzz" role="tab" data-toggle="tab">buzz</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#references" role="tab" data-toggle="tab">references</a>
-  </li>
-</ul>
-
-<div class="tab-content">
-  <div role="tabpanel" class="tab-pane fade in active" id="profile"><div class="homeBody">
-    <button class="btn btn-block btn-yellow m-2">Comenzar Dia</button>
-    <div class="card-deck">
-      <div class="card">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Mis productos</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-      <div class="card">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Añadir promociones</h5>
-          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-      <div class="card">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title"></h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-    </div>
-  </div> </div>
-  <div role="tabpanel" class="tab-pane fade" id="buzz">bbbgdfgdfg</div>
-  <div role="tabpanel" class="tab-pane fade" id="references">cccdfgdfgdfg</div>
-</div> -->
 <div class="p-1 no-gutters justify-content-between mb-4 align-items-center mt-3">
   <div class="row no-gutters">
     <div class="col-xl-3 text-left">
@@ -186,71 +72,11 @@
                                           <td><span class="badge badge-xs badge-primary">Pendiente</span>
                                           </td>
                                           <td>
-                                              <span>
+                                              <span class="d-flex">
                                                   <a class="mr-4" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-pencil-alt color-muted"></i> </a>
                                                   <a data-toggle="tooltip" data-placement="top" title="Close" data-original-title="Close"><i class="fas fa-times color-danger"></i></a>
                                               </span>
                                           </td>
-                                      </tr>
-                                      <tr>
-                                          <td>54565</td>
-                                          <td>Multigrain Hot Cereal</td>
-                                          <td>John Doe</td>
-                                          <td>Baridhara</td>
-                                          <td>3:00</td>
-                                          <td>4</td>
-                                          <td>$ 87</td>
-                                          <td><span class="badge badge-xs badge-success">Entregado</span>
-                                          </td>
-                                          <span>
-                                            <a class="mr-4" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-pencil-alt color-muted"></i> </a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Close" data-original-title="Close"><i class="fas fa-times color-danger"></i></a>
-                                        </span>
-                                      </tr>
-                                      <tr>
-                                          <td>54235</td>
-                                          <td>French Fry</td>
-                                          <td>Maximillian</td>
-                                          <td>Khilgaon</td>
-                                          <td>2:00</td>
-                                          <td>6</td>
-                                          <td>$ 65</td>
-                                          <td><span class="badge badge-xs badge-dark">Cancelado</span>
-                                          </td>
-                                          <span>
-                                            <a class="mr-4" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-pencil-alt color-muted"></i> </a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Close" data-original-title="Close"><i class="fas fa-times color-danger"></i></a>
-                                        </span>
-                                      </tr>
-                                      <tr>
-                                          <td>54587</td>
-                                          <td>Fried Egg Sandwich</td>
-                                          <td>John Johnson</td>
-                                          <td>Gulshan</td>
-                                          <td>11:00</td>
-                                          <td>3</td>
-                                          <td>$ 56</td>
-                                          <td><span class="badge badge-xs badge-primary">Pendiente</span>
-                                          </td>
-                                          <span>
-                                            <a class="mr-4" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-pencil-alt color-muted"></i> </a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Close" data-original-title="Close"><i class="fas fa-times color-danger"></i></a>
-                                        </span>
-                                      </tr>
-                                      <tr>
-                                          <td>54521</td>
-                                          <td>Pizza</td>
-                                          <td>Mike Hussy</td>
-                                          <td>Banani</td>
-                                          <td>12:00</td>
-                                          <td>5</td>
-                                          <td>$ 65</td>
-                                          <td><span class="badge badge-xs badge-warning">Pendiente</span>
-                                          </td>
-                                          <span>
-                                            <a class="mr-4" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-pencil-alt color-muted"></i> </a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Close" data-original-title="Close"><i class="fas fa-times color-danger"></i></a>
-                                        </span>
                                       </tr>
                                   </tbody>
                               </table>
@@ -274,55 +100,28 @@
                                 <div class="row no-gutters">
                                   <div class="col-xl-7 col-lg-6 col-xxl-6">
                                     <div class="card top_menu_widget">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Top Menus</h4><button class="btn btn-info" disabled="disabled">Add new</button>
-                                            <div class="media border-bottom pt-3 pb-3">
-                                                <img width="50" height="50" alt="#" class="mr-3" src="../../assets/images/menu/menu1.png">
+                                      <h4 class="card-title sticky-top m-2 p-2">Top Menus</h4><button data-toggle="modal" data-target="#newMenuModal" class="btn btn-info"><i class="fas fa-plus-circle"></i></button>
+                                        <div class="card-body top-menu">
+                                            <div *ngFor="let itemMenu of myfoodMenu.slice().reverse()" class="media border-bottom pt-3 pb-3">
+                                                <img width="50" height="50" alt="#" class="mr-3" src="{{itemMenu.photo}}">
                                                 <div class="media-body">
-                                                    <h5 class="mb-1 mt-sm-1 mt-0">Fried Egg Sandwich</h5>
-                                                    <span>Egg, Sandwich</span>
+                                                    <h5 class="mb-1 mt-sm-1 mt-0">{{itemMenu.menuName}}</h5>
+                                                    <span>{{itemMenu.description}}</span>
                                                 </div>
-                                                <h5 class="badge-lighten-primary">$268</h5>
+                                                <h5 class="badge-lighten-primary">{{itemMenu.cost |currency:"₡"}}</h5>
                                             </div>
-                                            <div class="media border-bottom pt-3 pb-3">
-                                                <img width="50" height="50" alt="#" class="mr-3" src="../../assets/images/menu/menu2.png">
-                                                <div class="media-body">
-                                                    <h5 class="mb-1 mt-sm-1 mt-0">French Crostini</h5>
-                                                    <span>French, Spicy</span>
+                                            <div *ngIf="myfoodMenu.length == 0">
+                                              <div class="jumbotron">
+                                                <div class="row w-100">
+                                                        <div class="col-md-12">
+                                                            <div class="card border-info mx-sm-1 p-3">
+                                                                <div class="card border-info shadow text-info p-3 my-card" ><span class="fas fa-utensils" aria-hidden="true"></span></div>
+                                                                <div class="text-info text-center mt-3"><h4>Añada tus menus</h4></div>
+                                                                <div class="text-info text-center mt-2"><h1><button data-toggle="modal" data-target="#newMenuModal" class="btn btn-info"><i class="fas fa-plus-circle"></i></button></h1></div>
+                                                            </div>
+                                                        </div>
+                                                     </div>
                                                 </div>
-                                                <h5 class="badge-lighten-success">$268</h5>
-                                            </div>
-                                            <div class="media border-bottom pt-3 pb-3">
-                                                <img width="50" height="50" alt="#" class="mr-3" src="../../assets/images/menu/menu3.png">
-                                                <div class="media-body">
-                                                    <h5 class="mb-1 mt-sm-1 mt-0">Redwine and Colddrinks</h5>
-                                                    <span>Drinks, Wine</span>
-                                                </div>
-                                                <h5 class="badge-lighten-info">$268</h5>
-                                            </div>
-                                            <div class="media border-bottom pt-3 pb-3">
-                                                <img width="50" height="50" alt="#" class="mr-3" src="../../assets/images/menu/menu4.png">
-                                                <div class="media-body">
-                                                    <h5 class="mb-1 mt-sm-1 mt-0">Multigrain Hot Cereal</h5>
-                                                    <span>Hot, Spicy</span>
-                                                </div>
-                                                <h5 class="badge-lighten-warning">$268</h5>
-                                            </div>
-                                            <div class="media border-bottom pt-3 pb-3">
-                                                <img width="50" height="50" alt="#" class="mr-3" src="../../assets/images/menu/menu5.png">
-                                                <div class="media-body">
-                                                    <h5 class="mb-1 mt-sm-1 mt-0">Lemon Yogurt Parfait</h5>
-                                                    <span>Juice, Cold</span>
-                                                </div>
-                                                <h5 class="badge-lighten-danger">$268</h5>
-                                            </div>
-                                            <div class="media pt-3 pb-3">
-                                                <img width="50" height="50" alt="#" class="mr-3" src="../../assets/images/menu/menu6.png">
-                                                <div class="media-body">
-                                                    <h5 class="mb-1 mt-sm-1 mt-0">Branch Special</h5>
-                                                    <span>Hot, Spicy</span>
-                                                </div>
-                                                <h5 class="badge-lighten-primary">$268</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -400,3 +199,57 @@
                   </div>
             </div>
         </div>
+
+
+        <!-- Modal for create new Menu -->
+
+<div class="modal fade" id="newMenuModal" tabindex="-1" role="dialog" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title" id="newMenuModalLabel">Nuevo Menu</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="newMenuForm" (ngSubmit)="newMenuSubmit()">
+            <div class="form-group">
+                <label class="font-weight-bold">Nombre</label>
+                <input type="text" formControlName="foodName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.foodName.errors }" />
+                <div *ngIf="submitted && f.foodName.errors" class="invalid-feedback">
+                    <div *ngIf="f.foodName.errors.required">Nombre de la comida es requerido</div>
+                </div>
+            </div>
+            <div class="form-group">
+              <label class="font-weight-bold">Descripcion</label>
+              <input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
+              <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                  <div *ngIf="f.description.errors.required">Nombre de la comida es requerido</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="font-weight-bold">Costo</label>
+              <input formControlName="cost" pattern="\d*" class="form-control" placeholder="₡" maxlength="6" [ngClass]="{ 'is-invalid': submitted && f.cost.errors }" />
+              <div *ngIf="submitted && f.cost.errors" class="invalid-feedback">
+                  <div *ngIf="f.cost.errors.required">Costo es requerido</div>
+                  <div *ngIf="f.cost.errors.minlength">Costo debe ser al menos ₡100</div>
+                  <div *ngIf="f.cost.errors.pattern">Solo se permiten numeros</div>
+              </div>
+            </div>
+            <div class="form-group text-center">
+              <label class="font-weight-bold ">Foto:</label>
+              <input #photoinput type="file" name="image" accept="image/*" class="d-none"
+                (change)="processFile($event)">
+              <img [src]="photoSelected || '../../../assets/upload.png'" alt="" style="width: 100px; height: 100px;"
+                class="img-fluid" (click)="photoinput.click()" srcset="">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary"> <i class="fas fa-plus-circle"></i>Agregar</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

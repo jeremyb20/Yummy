@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
+import { Notification, NotificationType } from "../constants/constants";
 
 @Injectable({
 	providedIn: 'root'
@@ -15,9 +16,32 @@ export class NotificationService {
     private clearRelatedGames: Subject<boolean> = new Subject<boolean>();
 	private clickBetContinue: Subject<boolean> = new Subject<boolean>();
     private unreadMailOptions: Subject<number> = new Subject<number>();
-    private updateHeader: Subject<boolean> = new Subject<boolean>();
+	private updateHeader: Subject<boolean> = new Subject<boolean>();
+	
+	private _subject = new Subject<Notification>();
+	private _idx = 0;
 
 	constructor() { }
+
+	getObservable(): Observable<Notification> {
+		return this._subject.asObservable();
+	}
+	
+	info(title: string, message: string, timeout = 3000) {
+		this._subject.next(new Notification(this._idx++, NotificationType.info, title, message, timeout));
+	}
+	
+	success(title: string, message: string, timeout = 3000) {
+		this._subject.next(new Notification(this._idx++, NotificationType.success, title, message, timeout));
+	}
+	
+	warning(title: string, message: string, timeout = 3000) {
+		this._subject.next(new Notification(this._idx++, NotificationType.warning, title, message, timeout));
+	}
+	
+	error(title: string, message: string, timeout = 0) {
+		this._subject.next(new Notification(this._idx++, NotificationType.error, title, message, timeout));
+	}
 	  
 	init() {
         this.getHttpError = new Subject<number>();
@@ -80,21 +104,6 @@ export class NotificationService {
 		return this.getHomeOptions.asObservable();
     }
     
-    notifyClearRelatedGames(clear: boolean) {
-		this.clearRelatedGames.next(clear);
-	}  
-
-	onClearRelatedGames() {
-		return this.clearRelatedGames.asObservable();
-    }
-    
-    notifyClickBetContinue() {
-		this.clickBetContinue.next();
-	}  
-
-	onClickBetContinue() {
-		return this.clickBetContinue.asObservable();
-	}
 
 	notifyUnreadMail(showUnread: number) {
 		this.unreadMailOptions.next(showUnread);
@@ -104,13 +113,6 @@ export class NotificationService {
 		return this.unreadMailOptions.asObservable();
     }
 
-    notifyUpdateHeader(reload: boolean) {
-		this.updateHeader.next(reload);
-	}  
-
-	onUpdateHeader() {
-		return this.updateHeader.asObservable();
-    }
 
 	clear() {
 		this.getHttpError.complete();

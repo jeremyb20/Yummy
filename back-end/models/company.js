@@ -69,6 +69,30 @@ const CompanySchema = mongoose.Schema ({
       type: String,
       require: false
     }
+  }],
+  newMenu: [{
+    idCompany: {
+      type: String,
+      require: true,
+      unique: true
+    },
+    foodName: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    description: {
+      type: String,
+      require: true
+    },
+    cost: {
+      type: Number,
+      require: true
+    },
+    photo: {
+      type: String,
+      require: false
+    }
   }]
 });
 
