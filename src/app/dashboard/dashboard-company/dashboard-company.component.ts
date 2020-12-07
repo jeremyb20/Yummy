@@ -34,6 +34,7 @@ export class DashboardCompanyComponent implements OnInit, OnDestroy {
   timeSeconds: number =  6000;
   file : File;
   photoSelected: String | ArrayBuffer;
+  showEditMenu: boolean = false;
 
   hideMsg: boolean = false; 
   ShowMsg: string;
@@ -64,6 +65,7 @@ export class DashboardCompanyComponent implements OnInit, OnDestroy {
   }
 
   getMyListMenu(){
+    this.showEditMenu = false;
     this.companyService.getMyMenuList(this.user.id).subscribe(data => {
       if(data.length>0) {
         this.myfoodMenu = data;
@@ -80,11 +82,58 @@ export class DashboardCompanyComponent implements OnInit, OnDestroy {
     this.showPanelMenuItem = item;
   }
 
-
-  sendInfo() {
-    this._notificationSvc.warning('Hello World', 'This is an information', 6000);
+  editMenuSelected(item:any) {
+    this.showPanelMenuItem = item;
+    this.showEditMenu = true;
+    this.newMenuForm = this.formBuilder.group({
+      foodName: [item.foodName, [Validators.required]],
+      cost: [item.cost, [Validators.minLength(3),Validators.required,Validators.pattern(/\d/)]],
+      description: [item.description, [Validators.required]],
+    });
+    $('#newMenuModal').modal('show');
   }
 
+  updateMenuItemSelected(){
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.newMenuForm.invalid) {
+        return;
+    }
+
+    var updateItemMenu = {
+      foodName: this.f.foodName.value,
+      description: this.f.description.value,
+      cost: this.f.cost.value,
+      idCompany: this.showPanelMenuItem.idCompany,
+      _id: this.showPanelMenuItem._id
+    }
+
+    this.companyService.updateNewMenu(updateItemMenu,this.file).subscribe(data => {
+      if(data.success) {
+        $('#newMenuModal').modal('hide');
+        this._notificationSvc.success('Hola '+this.user.companyName+'', data.msg, 6000);
+        this.showEditMenu = false;
+        this.newMenuForm = this.formBuilder.group({
+          foodName: ['', Validators.required],
+          cost: ['', [Validators.minLength(3),Validators.required,Validators.pattern(/\d/)]],
+          description: ['', Validators.required],
+        });
+        this.getMyListMenu();
+      } else {
+        $('#newMenuModal').modal('hide');
+        this._notificationSvc.warning('Hola '+this.user.companyName+'', data.msg, 6000);
+      }
+    },
+    error => {
+      $('#newMenuModal').modal('hide');
+      this._notificationSvc.warning('Hola '+this.user.companyName+'', 'Ocurrio un error favor contactar a soporte o al administrador del sitio', 6000);
+    });
+  }
+  
+  close(){
+    this.showEditMenu = false;
+    $('#newMenuModal').modal('hide');
+  }
   //Track order ticket
 
   stepTrackOrder(step: number){

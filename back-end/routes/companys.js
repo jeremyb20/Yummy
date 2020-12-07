@@ -151,12 +151,46 @@ router.get('/getAllMenuList/:id', function(req, res){
   var id = req.params.id;
   Company.findById(id, function(err, results){
     if(err){
-      res.send('something went really wrong');
+      res.send('Algo ocurrio favor contactar a soporte');
       next();
     }
     res.json(results.newMenu)
   });
 });
+
+// router.put('/update/updateMenuItemList', (req, res) => {
+//   console.log(req.body)
+//   Company.findByIdAndUpdate(req.body._id, { $addToSet: { newMenu: req.body._id }} , { 'new': true }).then(function (data) {
+//   res.json({ success: true, msg: 'Se ha actualizado correctamente.' });
+// });
+// });
+
+router.put('/update/updateMenuItemList', async(req, res, next) => {
+  const obj = JSON.parse(JSON.stringify(req.body));
+console.log(req.body, 'body');
+console.log(req.params);  
+  const result = await cloudinary.uploader.upload(req.file != undefined? req.file.path: obj.image);
+  let newMenu = {
+    foodName: obj.foodName,
+    description: obj.description,
+    cost: obj.cost,
+    _id: obj._id,
+    idCompany: obj.idCompany,
+    photo: result.url == undefined? obj.image : result.url
+  };
+  Company.findOneAndUpdate(  req.body.idCompany,  { newMenu: newMenu },{safe: true, upsert: true, new: true} ,async(err, menu, done) => {
+    try {
+      res.json({ success: true, msg: 'Se ha actualizado correctamente..!' });
+      } catch (err) {
+        res.json({success: false, msg: err});
+        next(err);
+      }
+  });
+});
+
+
+
+
 
 
 // Profile

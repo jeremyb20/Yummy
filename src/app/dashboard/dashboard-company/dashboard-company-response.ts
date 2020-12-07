@@ -1,5 +1,5 @@
 export interface NewMenuResponse {
-    menuName: string;
+    foodName: string;
     description: string;
     cost: string;
     photo: any;

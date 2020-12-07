@@ -1,10 +1,10 @@
 <div class="p-1 no-gutters justify-content-between mb-4 align-items-center mt-3">
   <div class="row no-gutters">
     <div class="col-xl-3 text-left">
-      <h2 class="page-heading">Hola, Bienvenido {{user.companyName}}!</h2>
+      <h2 class="page-heading">Bienvenido {{user.companyName}}!</h2>
       <p class="mb-0">Tu restaurante administrador</p>
     </div>
-    <div class="col-xl-9 mt-3 mt-xl-0">
+    <div class="col-xl-9 mt-3 mt-xl-0 mb-3">
       <div class="card mb-0">
           <div class="card-body p-2">
               <h5 class="card-title">Nuevas Ordenes</h5>
@@ -41,7 +41,7 @@
             <div class="row no-gutters">
                     
 
-              <div class="col-lg-12">
+              <div class="col-lg-12 mb-3">
                   <div class="card">
                       <div class="card-body">
                           <h4 class="card-title">Listas de ordenes</h4>
@@ -100,12 +100,12 @@
                                 <div class="row no-gutters">
                                   <div class="col-xl-7 col-lg-6 col-xxl-6">
                                     <div class="card top_menu_widget">
-                                      <h4 class="card-title sticky-top m-2 p-2">Top Menus</h4><button data-toggle="modal" data-target="#newMenuModal" class="btn btn-info ml-3 mr-3"><i class="fas fa-plus-circle"></i></button>
+                                      <h4 class="card-title m-2 p-2">Top Menus</h4><button data-toggle="modal" data-target="#newMenuModal" class="btn btn-info ml-3 mr-3"><i class="fas fa-plus-circle"></i></button>
                                         <div class="card-body top-menu">
                                             <div *ngFor="let itemMenu of myfoodMenu.slice().reverse()" (click)="showPanelMenu(itemMenu)" class="media border-bottom pt-3 pb-3">
                                                 <img width="50" height="50" alt="#" class="mr-3" src="{{itemMenu.photo}}">
                                                 <div class="media-body">
-                                                    <h5 class="mb-1 mt-sm-1 mt-0">{{itemMenu.menuName}}</h5>
+                                                    <h5 class="mb-1 mt-sm-1 mt-0">{{itemMenu.foodName}}</h5>
                                                     <span>{{itemMenu.description}}</span>
                                                 </div>
                                                 <h5 class="badge-lighten-primary">{{itemMenu.cost |currency:"₡"}}</h5>
@@ -130,9 +130,13 @@
                                     <div *ngIf="!Media.IsMobile && showPanelMenuItem != undefined" class="card">
                                       <img class="card-img-top" src="{{showPanelMenuItem.photo}}" alt="Card image cap">
                                       <div class="card-body">
-                                        <h5 class="card-title">{{showPanelMenuItem.foodName}}</h5>
-                                        <p class="card-text">{{showPanelMenuItem.description}}</p>
-                                        <p class="card-text">Cost:<small class="text-muted">{{showPanelMenuItem.cost}}</small></p>
+                                        <h5 class="card-title">Nombre: {{showPanelMenuItem.foodName}}</h5>
+                                        <p class="card-text">Descripcion: {{showPanelMenuItem.description}}</p>
+                                        <p class="card-text">Costo: <small class="text-muted">{{showPanelMenuItem.cost | currency:"₡"}}</small></p>                                        
+                                      </div>
+                                      <div class="card-footer text-center">
+                                        <button class="btn btn-danger float-left" type="button" id="toleft"><i class="far fa-trash-alt"></i> Eliminar</button>
+                                        <button class="btn btn-primary float-right" type="button" (click)="editMenuSelected(showPanelMenuItem)" id="toright"><i class="fas fa-edit"></i> Editar</button>
                                       </div>
                                     </div>
                                 </div>
@@ -207,13 +211,14 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-dark text-white">
-        <h5 class="modal-title" id="newMenuModalLabel">Nuevo Menu</h5>
+        <h5 *ngIf="!showEditMenu" class="modal-title" id="newMenuModalLabel">Nuevo Menu</h5>
+        <h5 *ngIf="showEditMenu" class="modal-title" id="newMenuModalLabel">Editar Menu</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="newMenuForm" (ngSubmit)="newMenuSubmit()">
+        <form *ngIf="!showEditMenu" [formGroup]="newMenuForm" (ngSubmit)="newMenuSubmit()">
             <div class="form-group">
                 <label class="font-weight-bold">Nombre</label>
                 <input type="text" formControlName="foodName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.foodName.errors }" />
@@ -244,9 +249,45 @@
               <img [src]="photoSelected || '../../../assets/upload.png'" alt="" style="width: 100px; height: 100px;"
                 class="img-fluid" (click)="photoinput.click()" srcset="">
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-primary"> <i class="fas fa-plus-circle"></i>Agregar</button>
+            <div class="modal-footer text-center">
+              <button type="button" class="btn btn-secondary float-left mr-auto" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary float-right"> <i class="fas fa-plus-circle"></i>Agregar</button>
+            </div>
+        </form>
+        <form *ngIf="showEditMenu" [formGroup]="newMenuForm" (ngSubmit)="updateMenuItemSelected()">
+            <div class="form-group">
+                <label class="font-weight-bold">Nombre</label>
+                <input type="text" formControlName="foodName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.foodName.errors }" />
+                <div *ngIf="submitted && f.foodName.errors" class="invalid-feedback">
+                    <div *ngIf="f.foodName.errors.required">Nombre de la comida es requerido</div>
+                </div>
+            </div>
+            <div class="form-group">
+              <label class="font-weight-bold">Descripcion</label>
+              <input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
+              <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                  <div *ngIf="f.description.errors.required">Nombre de la comida es requerido</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="font-weight-bold">Costo</label>
+              <input formControlName="cost" pattern="\d*" class="form-control" placeholder="₡" maxlength="6" [ngClass]="{ 'is-invalid': submitted && f.cost.errors }" />
+              <div *ngIf="submitted && f.cost.errors" class="invalid-feedback">
+                  <div *ngIf="f.cost.errors.required">Costo es requerido</div>
+                  <div *ngIf="f.cost.errors.minlength">Costo debe ser al menos ₡100</div>
+                  <div *ngIf="f.cost.errors.pattern">Solo se permiten numeros</div>
+              </div>
+            </div>
+            <div class="form-group text-center">
+              <label class="font-weight-bold ">Foto:</label>
+              <input #photoinput type="file" name="image" accept="image/*" class="d-none"
+                (change)="processFile($event)">
+              <img [src]="photoSelected || '../../../assets/upload.png'" alt="" style="width: 100px; height: 100px;"
+                class="img-fluid" (click)="photoinput.click()" srcset="">
+            </div>
+            <div class="modal-footer text-center">
+              <button type="button" (click)="close()" class="btn btn-secondary float-left mr-auto" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary float-right"> <i class="fas fa-edit"></i>Actualizar</button>
             </div>
         </form>
       </div>
