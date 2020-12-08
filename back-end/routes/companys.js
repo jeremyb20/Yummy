@@ -196,6 +196,30 @@ router.put('/update/updateMenuItemList', async(req, res, next) => {
    });
 });
 
+router.put('/delete/deleteMenuItemList', async(req, res, next) => {
+  console.log(req.params);
+  console.log(req.body);
+  Company.findOne({_id: req.body.idCompany }, (err, user) => {
+    if (!user) {
+      return res.json({success:false,msg: 'Usuario no encontrado'});
+    }
+     if(user != null) {
+      for (var i =0; i < user.newMenu.length; i++){
+        if (user.newMenu[i]._id == req.body._id) {
+          user.newMenu.splice(i,1);
+          user.save();
+          try {
+            res.json({ success: true, msg: 'Se ha eliminado correctamente..!' });
+          } catch (err) {
+            res.json({ success: false, msg: err });
+            next(err);
+          }
+          break;
+        }
+      }
+     }
+   });
+});
 
 // Profile
 router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {

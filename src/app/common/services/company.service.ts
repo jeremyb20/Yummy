@@ -92,6 +92,17 @@ export class CompanyService {
     }
   }
 
+  deleteMenuItem(item:any):Observable<any> {
+    const fd = new FormData();
+    fd.append('_id',item._id);
+    fd.append('idCompany',item.idCompany);
+    if(this.isDev) {
+      return this.httpClient.put<any>('http://localhost:8080/company/delete/deleteMenuItemList',fd);
+    }else{
+      return this.httpClient.put<any>('company/delete/deleteMenuItemLis',fd);
+    }
+  }
+
 //   getUsers() {
 //     let headers = new Headers();
 //     this.loadToken();

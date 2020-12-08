@@ -149,6 +149,39 @@ export class DashboardCompanyComponent implements OnInit, OnDestroy {
       this._notificationSvc.warning('Hola '+this.user.companyName+'', 'Ocurrio un error favor contactar a soporte o al administrador del sitio', 6000);
     });
   }
+
+  deleteMenuSelected(item:any) {
+    Swal.fire({
+      title: 'Eliminar '+item.foodName,
+      html: "Estas seguro de eliminar este menu?",
+      showCancelButton: true,
+      allowEscapeKey: false,
+      confirmButtonText: 'OK',
+      cancelButtonText: 'No',
+      allowOutsideClick: false,
+      buttonsStyling: false,
+      reverseButtons: true,
+      position: 'top',
+      padding: 0,
+      customClass: { container: 'sw-leave-container', cancelButton: 'btn btn-warning border col-auto mr-auto', confirmButton: 'col-auto btn btn-info' }
+    })
+    .then((result) => {
+        if (result.value){
+          this.companyService.deleteMenuItem(item).subscribe(data => {
+            if(data.success) {
+              this._notificationSvc.success('Hola '+this.user.companyName+'', data.msg, 6000);
+              this.getMyListMenu();
+            } else {
+              this._notificationSvc.warning('Hola '+this.user.companyName+'', data.msg, 6000);
+            }
+          },
+          error => {
+            $('#newMenuModal').modal('hide');
+            this._notificationSvc.warning('Hola '+this.user.companyName+'', 'Ocurrio un error favor contactar a soporte o al administrador del sitio', 6000);
+          });
+        }
+    });
+  }
   
   close(){
     this.showEditMenu = false;

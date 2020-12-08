@@ -135,7 +135,7 @@
                                         <p class="card-text">Costo: <small class="text-muted">{{showPanelMenuItem.cost | currency:"₡"}}</small></p>                                        
                                       </div>
                                       <div class="card-footer text-center">
-                                        <button class="btn btn-danger float-left" type="button" id="toleft"><i class="far fa-trash-alt"></i> Eliminar</button>
+                                        <button class="btn btn-danger float-left" type="button" (click)="deleteMenuSelected(showPanelMenuItem)" id="toleft"><i class="far fa-trash-alt"></i> Eliminar</button>
                                         <button class="btn btn-primary float-right" type="button" (click)="editMenuSelected(showPanelMenuItem)" id="toright"><i class="fas fa-edit"></i> Editar</button>
                                       </div>
                                     </div>
