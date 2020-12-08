@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { CompanyService } from 'src/app/common/services/company.service';
 import { NewMenuResponse } from './dashboard-company-response'
 import { NotificationService } from 'src/app/common/services/notification.service';
+import { Router } from '@angular/router';
 declare var $: any;
 declare const google: any; 
 
@@ -43,9 +44,30 @@ export class DashboardCompanyComponent implements OnInit, OnDestroy {
   @ViewChild("search")
   public searchElementRef: ElementRef;
 
-  constructor(private companyService: CompanyService, private media: MediaService, private formBuilder: FormBuilder, private _notificationSvc: NotificationService) {
+  constructor(private companyService: CompanyService, private media: MediaService, private formBuilder: FormBuilder, private _notificationSvc: NotificationService, private router: Router) {
       this.userLogged = this.companyService.getLocalCompany()
       this.user = JSON.parse(this.userLogged);
+      if(this.user != null){
+        switch (this.user.userState) {
+          case 1:
+            this.router.navigate(['/dashboard-user']);
+            break;
+          case 2:
+            this.router.navigate(['/dashboard-driver']);
+            break;
+
+          case 3:
+            this.router.navigate(['/dashboard-company']);
+            break;
+
+          default:
+            break;
+        }
+      }else{
+        this.router.navigate(['/home']);
+        localStorage.clear();
+        return;
+      }
 
       this.mediaSubscription = this.media.subscribeMedia().subscribe(media => {
         this.Media = media;
@@ -95,11 +117,9 @@ export class DashboardCompanyComponent implements OnInit, OnDestroy {
 
   updateMenuItemSelected(){
     this.submitted = true;
-    // stop here if form is invalid
     if (this.newMenuForm.invalid) {
         return;
     }
-
     var updateItemMenu = {
       foodName: this.f.foodName.value,
       description: this.f.description.value,
@@ -176,17 +196,12 @@ export class DashboardCompanyComponent implements OnInit, OnDestroy {
   }
 
   processFile(event: HtmlInputEvent): void {
-
     if(event.target.files && event.target.files[0]){
       this.file = <File>event.target.files[0];
-
       const reader = new FileReader();
-
       reader.onload = e => this.photoSelected = reader.result;
       reader.readAsDataURL(this.file);
     }
   }
-
-
 }
 

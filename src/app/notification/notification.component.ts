@@ -29,7 +29,8 @@ private _addNotification(notification: Notification) {
   }
 
   ngOnDestroy() {
-    this._subscription.unsubscribe();
+    if(this._subscription != undefined)
+      this._subscription.unsubscribe();
   }
 
   close(notification: Notification) {

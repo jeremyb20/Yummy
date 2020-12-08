@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ILatLng} from '../../common/directives/directions-map.directive'
 import { AuthServices } from 'src/app/common/services/auth.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-driver',
@@ -29,10 +30,31 @@ export class DashboardDriverComponent implements OnInit {
      {location: { lat: 41.8339037, lng: -87.8720468 }}
   ]
 
-  constructor(private authService: AuthServices) {
+  constructor(private authService: AuthServices, private router : Router) {
       this.located = false;
       this.userLogged = this.authService.getLocalUser()
       this.user = JSON.parse(this.userLogged);
+      if(this.user != null){
+        switch (this.user.userState) {
+          case 1:
+            this.router.navigate(['/dashboard-user']);
+            break;
+          case 2:
+            this.router.navigate(['/dashboard-driver']);
+            break;
+
+          case 3:
+            this.router.navigate(['/dashboard-company']);
+            break;
+
+          default:
+            break;
+        }
+      }else{
+        this.router.navigate(['/home']);
+        localStorage.clear();
+        return;
+      }
   }
 
   ngOnInit() {}

@@ -7,6 +7,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { MediaResponse, MediaService } from '../../common/services/media.service';
 import { darkStyle, lightStyle } from '../../common/constants/map-theme';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 declare const google: any; 
 
@@ -60,10 +61,31 @@ export class DashboardUserComponent implements OnInit {
   @ViewChild("search")
   public searchElementRef: ElementRef;
 
-  constructor(private authService: AuthServices, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private media: MediaService) {
+  constructor(private authService: AuthServices, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private media: MediaService, private router: Router) {
       this.located = false;
       this.userLogged = this.authService.getLocalUser()
       this.user = JSON.parse(this.userLogged);
+      if(this.user != null){
+        switch (this.user.userState) {
+          case 1:
+            this.router.navigate(['/dashboard-user']);
+            break;
+          case 2:
+            this.router.navigate(['/dashboard-driver']);
+            break;
+
+          case 3:
+            this.router.navigate(['/dashboard-company']);
+            break;
+
+          default:
+            break;
+        }
+      }else{
+        this.router.navigate(['/home']);
+        localStorage.clear();
+        return;
+      }
       this.setCurrentPosition();
   }
 

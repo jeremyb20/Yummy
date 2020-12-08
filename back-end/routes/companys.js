@@ -174,7 +174,7 @@ router.put('/update/updateMenuItemList', async(req, res, next) => {
 
   Company.findOne({_id: req.body.idCompany }, (err, user) => {
     if (!user) {
-      return res.json({success:false,msg: 'Email not found'});
+      return res.json({success:false,msg: 'Usuario no encontrado'});
     }
      if(user != null) {
        user.newMenu.forEach(element => {
