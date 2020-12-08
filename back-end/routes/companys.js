@@ -12,6 +12,8 @@ const nodemailer = require('nodemailer');
 const app = express();
 
 var fileupload = require('express-fileupload');
+const { element } = require('protractor');
+const company = require('../models/company');
 
 app.use(fileupload({
   useTempFiles:true
@@ -158,17 +160,8 @@ router.get('/getAllMenuList/:id', function(req, res){
   });
 });
 
-// router.put('/update/updateMenuItemList', (req, res) => {
-//   console.log(req.body)
-//   Company.findByIdAndUpdate(req.body._id, { $addToSet: { newMenu: req.body._id }} , { 'new': true }).then(function (data) {
-//   res.json({ success: true, msg: 'Se ha actualizado correctamente.' });
-// });
-// });
-
 router.put('/update/updateMenuItemList', async(req, res, next) => {
   const obj = JSON.parse(JSON.stringify(req.body));
-console.log(req.body, 'body');
-console.log(req.params);  
   const result = await cloudinary.uploader.upload(req.file != undefined? req.file.path: obj.image);
   let newMenu = {
     foodName: obj.foodName,
@@ -178,19 +171,30 @@ console.log(req.params);
     idCompany: obj.idCompany,
     photo: result.url == undefined? obj.image : result.url
   };
-  Company.findOneAndUpdate(  req.body.idCompany,  { newMenu: newMenu },{safe: true, upsert: true, new: true} ,async(err, menu, done) => {
-    try {
-      res.json({ success: true, msg: 'Se ha actualizado correctamente..!' });
-      } catch (err) {
-        res.json({success: false, msg: err});
-        next(err);
-      }
-  });
+
+  Company.findOne({_id: req.body.idCompany }, (err, user) => {
+    if (!user) {
+      return res.json({success:false,msg: 'Email not found'});
+    }
+     if(user != null) {
+       user.newMenu.forEach(element => {
+         if(element._id == newMenu._id){
+          element["foodName"] = newMenu.foodName;
+          element["description"] = newMenu.description;
+          element["cost"] = newMenu.cost;
+          element["photo"] = newMenu.photo;
+          user.save();
+           try {
+             res.json({ success: true, msg: 'Se ha actualizado correctamente..!' });
+           } catch (err) {
+             res.json({ success: false, msg: err });
+             next(err);
+           }
+         }
+       })
+     }
+   });
 });
-
-
-
-
 
 
 // Profile
