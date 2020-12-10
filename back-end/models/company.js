@@ -13,7 +13,8 @@ const CompanySchema = mongoose.Schema ({
   },
   email: {
     type: String,
-    require: true
+    require: true,
+    unique: true
   },
   password: {
     type: String,
@@ -115,7 +116,7 @@ const CompanySchema = mongoose.Schema ({
       require: true
     }
   }]
-});
+}, { autoIndex: false });
 
 CompanySchema.plugin(passportLocalMongoose);
 

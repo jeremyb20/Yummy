@@ -10,12 +10,12 @@ const UserSchema = mongoose.Schema ({
   },
   email: {
     type: String,
-    require: true
+    require: true,
+    unique: true
   },
   username: {
     type: String,
-    require: true,
-    unique: true
+    require: true
   },
   password: {
     type: String,
@@ -71,7 +71,7 @@ const UserSchema = mongoose.Schema ({
       require: false
     }
   }]
-});
+}, { autoIndex: false });
 
 UserSchema.plugin(passportLocalMongoose);
 
