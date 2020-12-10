@@ -36,7 +36,7 @@ export class DashboardCompanyComponent implements OnInit, OnDestroy {
   file : File;
   photoSelected: String | ArrayBuffer;
   showEditMenu: boolean = false;
-
+  loading: boolean = false;
   hideMsg: boolean = false; 
   ShowMsg: string;
 
@@ -195,6 +195,7 @@ export class DashboardCompanyComponent implements OnInit, OnDestroy {
 
   newMenuSubmit() {
     this.submitted = true;
+    this.loading = true;
     // stop here if form is invalid
     if (this.newMenuForm.invalid) {
         return;
@@ -208,16 +209,19 @@ export class DashboardCompanyComponent implements OnInit, OnDestroy {
 
     this.companyService.registerNewMenu(newMenu,this.file).subscribe(data => {
       if(data.success) {
+        this.loading = false;
         $('#newMenuModal').modal('hide');
         this._notificationSvc.success('Hola '+this.user.companyName+'', data.msg, 6000);
         this.getMyListMenu();
       } else {
+        this.loading = false;
         $('#newMenuModal').modal('hide');
         this._notificationSvc.warning('Hola '+this.user.companyName+'', data.msg, 6000);
       }
     },
     error => {
       $('#newMenuModal').modal('hide');
+      this.loading = false;
       this._notificationSvc.warning('Hola '+this.user.companyName+'', 'Ocurrio un error favor contactar a soporte o al administrador del sitio', 6000);
     });
   }

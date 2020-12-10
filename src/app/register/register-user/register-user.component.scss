@@ -1,6 +1,47 @@
-
-
-.bg-transparent {
+@import "../../../scss/partials/bootstrap-breakpoints";
+#register-user {
+  background-color: #81D4FA;
+  height: 100vh;
+  @include media-breakpoint-up(lg) {
+    .card{
+      width: 30rem;
+      margin: auto;
+      background-color: #81D4FA;
+    }
+  }
+  .card{
+    margin: auto;
+    background-color: #81D4FA;
+  }
+  background-color: #81D4FA;
+  height: 100vh;
+  .btn-yellow {
+      border: 2px solid #F9A825;
+      background-color: #F9A825;
+      color: #fff;
+      font-weight: bold;
+      letter-spacing: 1px;
+  }
+  
+  .btn-yellow:hover {
+      background-color: #F57F17;
+      border: 2px solid #F57F17;
+  }
+  
+  .btn-inverse {
+      border: 2px solid #F9A825;
+      background-color: transparent;
+      color: #F9A825;
+      font-weight: bold;
+      letter-spacing: 1px;
+  }
+  
+  .btn-inverse:hover {
+      background-color: #F57F17;
+      color: #fff;
+      border: 2px solid #F57F17;
+  }
+  .bg-transparent {
     background-color: transparent;
   }
   
@@ -11,50 +52,26 @@
   .photo {
     object-fit: contain;
   }
-  
-  .card {
-    width: 30rem;
-    margin: 0 auto;
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
   }
 
-  $loader-colors: dodgerblue, mediumspringgreen, crimson, peachpuff, chocolate, pink;
-$loader-dash: 63;
-$loader-duration: length($loader-colors) * 1s;
-$loader-duration-alt: $loader-duration / length($loader-colors);
-$loader-keyframe: 1 / (length($loader-colors) * 2) * 100;
+  .remove-margin {
+    margin-bottom: -10px;
+  }
 
-.loader {
-  animation: loader-turn $loader-duration-alt linear infinite;
-  padding: 1rem;
-  max-width: 60px;
-  width: 100%;
-
-  @keyframes loader-turn {
-    50% { transform: rotate(180deg) }
-    100% { transform: rotate(720deg) }
+  .btn-facebook {
+    background-color: #405D9D;
+    color: #fff;
+  }
+  .btn-google {
+    background-color: #42AEEC;
+    color: #fff;
   }
 }
 
-.loader__value {
-  animation: loader-stroke $loader-duration linear infinite; 
-  fill: none;
-  stroke-dasharray: $loader-dash;
-  stroke-dashoffset: $loader-dash;
-  stroke-linecap: round;
-  stroke-width: 4;
 
-  @for $i from 1 through length($loader-colors) {
-    &:nth-child(#{$i}) {
-      stroke: nth($loader-colors, $i);
-      
-      @if $i > 1 {
-        animation-delay: ($i - 1) * $loader-duration-alt;
-      }
-    }
-  }
   
-  @keyframes loader-stroke {
-    #{$loader-keyframe * 1%} { stroke-dashoffset: 0 }
-    #{$loader-keyframe * 2%}, 100% { stroke-dashoffset: $loader-dash }
-  }
-}

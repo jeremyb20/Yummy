@@ -35,36 +35,39 @@ router.post('/register', async(req, res, next) => {
     username: obj.username,
     password: obj.password,
     userState: obj.userState,
+    phone: obj.phone,
     photo: result.url == undefined? obj.image : result.url
   });
 
   User.addUser(newUser,async(err, user, done) => {
     try {
-      var smtpTransport = nodemailer.createTransport({
-        host: 'mail.ticowebmail.com',
-        port: 25,
-        secure: false,
-        logger: true,
-        debug: true,
-        ignoreTLS: true,
-        auth: {
-          user: 'marco@ticowebmail.com',
-          pass: 'NTRNTxplr12'
-        },
-        tls: {
-          // do not fail on invalid certs
-          rejectUnauthorized: false
-        }
-      });
-      var mailOptions = {
-        to: newUser.email,
-        from: 'marco@ticowebmail.com',
-        subject: 'Node.js Register User',
-        text: '¡Bienvenido a Yummy Eats! ' + obj.name + ' para iniciar sesion estos serian sus credenciales: correo: ' + obj.email + ' contraseña temporal:'+obj.password 
-      };
-      smtpTransport.sendMail(mailOptions, function (err) {
-        res.json({ success: true, msg: 'User registered' });
-      });
+      // var smtpTransport = nodemailer.createTransport({
+      //   host: 'mail.ticowebmail.com',
+      //   port: 25,
+      //   secure: false,
+      //   logger: true,
+      //   debug: true,
+      //   ignoreTLS: true,
+      //   auth: {
+      //     user: 'marco@ticowebmail.com',
+      //     pass: 'NTRNTxplr12'
+      //   },
+      //   tls: {
+      //     // do not fail on invalid certs
+      //     rejectUnauthorized: false
+      //   }
+      // });
+      // var mailOptions = {
+      //   to: newUser.email,
+      //   from: 'marco@ticowebmail.com',
+      //   subject: 'Node.js Register User',
+      //   text: '¡Bienvenido a Yummy Eats! ' + obj.name + ' para iniciar sesion estos serian sus credenciales: correo: ' + obj.email + ' contraseña temporal:'+obj.password 
+      // };
+      // smtpTransport.sendMail(mailOptions, function (err) {
+      //   res.json({ success: true, msg: 'User registered' });
+      // });
+
+      res.json({ success: true, msg: 'User registered' });
         
       } catch (err) {
         res.json({success: false, msg: 'That Email or Username already exisits.!'});

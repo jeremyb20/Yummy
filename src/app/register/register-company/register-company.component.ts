@@ -155,9 +155,6 @@ export class RegisterCompanyComponent implements OnInit {
         this.ShowMsg = "Ocurrio un error favor contactar a soporte o al administrador del sitio";
         setTimeout(() => { this.hideMsg = false }, this.timeSeconds);
       });
-
-      console.log(newCompany,this.file);
-
   }
 
   onReset() {

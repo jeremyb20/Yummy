@@ -26,6 +26,7 @@ export class AuthServices {
     const fd = new FormData();
     fd.append('username',user.username);
     fd.append('email',user.email);
+    fd.append('phone',user.phone);
     fd.append('name',user.name);
     fd.append('password',user.password);
     fd.append('userState',user.userState);

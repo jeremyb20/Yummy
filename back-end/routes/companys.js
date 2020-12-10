@@ -69,7 +69,7 @@ router.post('/register/new-company', async(req, res, next) => {
       // smtpTransport.sendMail(mailOptions, function (err) {
       //   res.json({ success: true, msg: 'User registered' });
       // });
-      res.json({ success: true, msg: 'User registered' });
+      res.json({ success: true, msg: 'Compañia registrada exitosamente' });
       } catch (err) {
         res.json({success: false, msg: 'That Email or Username already exisits.!'});
         next(err);
