@@ -10,17 +10,16 @@ const UserSchema = mongoose.Schema ({
   },
   email: {
     type: String,
-    required: true,
-    unique: true
+    require: true
   },
   username: {
     type: String,
-    required: true,
+    require: true,
     unique: true
   },
   password: {
     type: String,
-    required: true
+    require: true
   },
   phone: {
     type: Number,
@@ -56,7 +55,7 @@ const UserSchema = mongoose.Schema ({
     },
     username: {
       type: String,
-      required: true,
+      require: true,
       unique: true
     },
     message: {

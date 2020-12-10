@@ -13,20 +13,19 @@ const CompanySchema = mongoose.Schema ({
   },
   email: {
     type: String,
-    required: true,
-    unique: true
+    require: true
   },
   password: {
     type: String,
-    required: true
+    require: true
   },
   lat: {
     type: String,
-    required: true
+    require: true
   },
   lng: {
     type: String,
-    required: true
+    require: true
   },
   photo: {
     type: String,
@@ -46,40 +45,14 @@ const CompanySchema = mongoose.Schema ({
     type: Number,
     require: true
   },
-  message: [{
-    idUserSent: {
-      type: String,
-      require: true,
-      unique: true
-    },
-    username: {
-      type: String,
-      required: true,
-      unique: true
-    },
-    message: {
-      type: String,
-      require: true
-    },
-    date: {
-      type: String,
-      require: true
-    },
-    imageUrl: {
-      type: String,
-      require: false
-    }
-  }],
   newMenu: [{
     idCompany: {
       type: String,
-      require: true,
-      unique: true
+      require: true
     },
     foodName: {
       type: String,
-      required: true,
-      unique: true
+      require: true,
     },
     description: {
       type: String,
@@ -92,6 +65,54 @@ const CompanySchema = mongoose.Schema ({
     photo: {
       type: String,
       require: false
+    }
+  }],
+  orderList: [{
+    idOrder: {
+      type: String,
+      require: true
+    },
+    idUserSent: {
+      type: String,
+      require: true
+    },
+    orderName: {
+      type: String,
+      require: true
+    },
+    customerName: {
+      type: String,
+      require: true
+    },
+    location: [{
+      lat: {
+        type: String,
+        require: true
+      },
+      lng: {
+        type: String,
+        require: true
+      },
+    }],
+    delivery: {
+      type: String,
+      require: true
+    },
+    time: {
+      type: String,
+      require: true
+    },
+    quantity: {
+      type: String,
+      require: true
+    },
+    price: {
+      type: String,
+      require: true
+    },
+    status: {
+      type: String,
+      require: true
     }
   }]
 });

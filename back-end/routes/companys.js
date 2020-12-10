@@ -13,7 +13,6 @@ const app = express();
 
 var fileupload = require('express-fileupload');
 const { element } = require('protractor');
-const company = require('../models/company');
 
 app.use(fileupload({
   useTempFiles:true
@@ -25,8 +24,8 @@ cloudinary.config({
   api_secret: 'xBNx-qCyqTrcAahx8ZqGEAnNpwM'
 });
 
-// Register aqui hay enviar la foto
-router.post('/register', async(req, res, next) => {
+// Register aqui hay ebviar la foto
+router.post('/register/new-company', async(req, res, next) => {
   const obj = JSON.parse(JSON.stringify(req.body));
   
   const result = await cloudinary.uploader.upload(req.file != undefined? req.file.path: obj.image);
@@ -42,38 +41,42 @@ router.post('/register', async(req, res, next) => {
     photo: result.url == undefined? obj.image : result.url
   });
 
-  Company.addCompany(newCompany,async(err, user, done) => {
-    try {
-    //   var smtpTransport = nodemailer.createTransport({
-    //     host: 'mail.ticowebmail.com',
-    //     port: 25,
-    //     secure: false,
-    //     logger: true,
-    //     debug: true,
-    //     ignoreTLS: true,
-    //     auth: {
-    //       user: 'marco@ticowebmail.com',
-    //       pass: 'NTRNTxplr12'
-    //     },
-    //     tls: {
-    //       // do not fail on invalid certs
-    //       rejectUnauthorized: false
-    //     }
-    //   });
-    //   var mailOptions = {
-    //     to: newCompany.email,
-    //     from: 'marco@ticowebmail.com',
-    //     subject: 'Node.js Register User',
-    //     text: '¡Bienvenido a Yummy Eats! ' + obj.name + ' para iniciar sesion estos serian sus credenciales: correo: ' + obj.email + ' contraseña temporal:'+obj.password 
-    //   };
-    //   smtpTransport.sendMail(mailOptions, function (err) {
-    //     res.json({ success: true, msg: 'Company registered' });
-    //   });
-      res.json({ success: true, msg: 'Company registered' });
-      } catch (err) {
-        res.json({success: false, msg: 'That Email or Username already exisits.!'});
-        next(err);
-      }
+  Company.addCompany(newCompany,async(user, done) => {
+    if(user){
+      try {
+        // var smtpTransport = nodemailer.createTransport({
+        //   host: 'mail.ticowebmail.com',
+        //   port: 25,
+        //   secure: false,
+        //   logger: true,
+        //   debug: true,
+        //   ignoreTLS: true,
+        //   auth: {
+        //     user: 'marco@ticowebmail.com',
+        //     pass: 'NTRNTxplr12'
+        //   },
+        //   tls: {
+        //     // do not fail on invalid certs
+        //     rejectUnauthorized: false
+        //   }
+        // });
+        // var mailOptions = {
+        //   to: newUser.email,
+        //   from: 'marco@ticowebmail.com',
+        //   subject: 'Node.js Register User',
+        //   text: '¡Bienvenido a Yummy Eats! ' + obj.name + ' para iniciar sesion estos serian sus credenciales: correo: ' + obj.email + ' contraseña temporal:'+obj.password 
+        // };
+        // smtpTransport.sendMail(mailOptions, function (err) {
+        //   res.json({ success: true, msg: 'User registered' });
+        // });
+        res.json({ success: true, msg: 'User registered' });
+        } catch (err) {
+          res.json({success: false, msg: 'That Email or Username already exisits.!'});
+          next(err);
+        }
+    }else{
+      res.json({ success: false, msg: 'Error en el sistema' });
+    }
   
   });
 });
@@ -197,8 +200,6 @@ router.put('/update/updateMenuItemList', async(req, res, next) => {
 });
 
 router.put('/delete/deleteMenuItemList', async(req, res, next) => {
-  console.log(req.params);
-  console.log(req.body);
   Company.findOne({_id: req.body.idCompany }, (err, user) => {
     if (!user) {
       return res.json({success:false,msg: 'Usuario no encontrado'});

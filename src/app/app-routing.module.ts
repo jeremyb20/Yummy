@@ -20,6 +20,7 @@ import { AdminGuard } from  './common/admin/admin.guard';
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { MenuRegisteredComponent } from './menu-registered/menu-registered.component';
 
 
 const routes: Routes = [
@@ -52,6 +53,7 @@ const routes: Routes = [
         { path: 'profile-user', component: ProfileUserComponent ,canActivate: [AdminGuard]},
         { path: 'profile-company', component: ProfileCompanyComponent ,canActivate: [AdminGuard]},
         { path: 'profile-driver', component: ProfileDriverComponent ,canActivate: [AdminGuard]},
+        { path: 'menu-registered', component: MenuRegisteredComponent ,canActivate: [AdminGuard]},
         { path: 'map', component: MapComponent },
         { path: '404', component: NotFoundComponent},
         { path: '**', redirectTo: '/404' }

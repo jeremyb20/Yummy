@@ -37,6 +37,7 @@ import { LoginLayoutComponent } from './layouts/login-layout/login-layout.compon
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NotificationService } from './common/services/notification.service';
 import { NotificationComponent } from './notification/notification.component';
+import { MenuRegisteredComponent } from './menu-registered/menu-registered.component';
 
 export function tokenGetter() {
   return localStorage.getItem("id_token");
@@ -66,7 +67,8 @@ export function tokenGetter() {
     MainLayoutComponent,
     LoginLayoutComponent,
     NotFoundComponent,
-    NotificationComponent
+    NotificationComponent,
+    MenuRegisteredComponent
   ],
   imports: [
     BrowserModule,
@@ -110,6 +112,6 @@ export function tokenGetter() {
   }],
   bootstrap: [AppComponent]
 
-  //AIzaSyC6XvMo8SNV30Pylr97UwPP6EPi1LGn_9A
+  //AIzaSyC6XvMo8SNV30Pylr97UwPP6EPi1LGn_9A   key para google maps
 })
 export class AppModule { }

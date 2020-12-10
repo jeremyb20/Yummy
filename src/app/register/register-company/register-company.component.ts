@@ -124,26 +124,27 @@ export class RegisterCompanyComponent implements OnInit {
       }
 
       this.companyService.registerCompany(newCompany,this.file).subscribe(data => {
+        console.log(data);
         if(data.success) {
-          Swal.fire({
-            title: 'Registro de la empresa ' + newCompany.companyName+'' ,
-            html: "Su registro ha sido authenticado correctamente. Haz click en ok para iniciar sesion",
-            showCancelButton: false,
-            allowEscapeKey: false,
-            confirmButtonText: 'OK',
-            allowOutsideClick: false,
-            buttonsStyling: false,
-            reverseButtons: true,
-            position: 'top',
-            padding: 0,
-            customClass: { container: 'sw-leave-container', confirmButton: 'col-auto btn btn-info' }
-          })
-          .then((result) => {
-              if (result.value){
-                this.router.navigate(['/login-company']); 
-              }
+          // Swal.fire({
+          //   title: 'Registro de la empresa ' + newCompany.companyName+'' ,
+          //   html: "Su registro ha sido authenticado correctamente. Haz click en ok para iniciar sesion",
+          //   showCancelButton: false,
+          //   allowEscapeKey: false,
+          //   confirmButtonText: 'OK',
+          //   allowOutsideClick: false,
+          //   buttonsStyling: false,
+          //   reverseButtons: true,
+          //   position: 'top',
+          //   padding: 0,
+          //   customClass: { container: 'sw-leave-container', confirmButton: 'col-auto btn btn-info' }
+          // })
+          // .then((result) => {
+          //     if (result.value){
+          //       this.router.navigate(['/login-company']); 
+          //     }
                 
-          });
+          // });
         } else {
           this.hideMsg = true;
           this.ShowMsg = data.msg;

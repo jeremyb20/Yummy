@@ -35,9 +35,9 @@ export class CompanyService {
     fd.append('image', photo);
 
     if(this.isDev) {
-      return this.httpClient.post<any>('http://localhost:8080/company/register', fd);
+      return this.httpClient.post<any>('http://localhost:8080/company/register/new-company', fd);
     }else{
-      return this.httpClient.post<any>('company/register', fd);
+      return this.httpClient.post<any>('company/register/new-company', fd);
     }
   }
 

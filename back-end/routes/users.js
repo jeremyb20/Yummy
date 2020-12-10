@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
+const Company = require('../models/company');
 const cloudinary = require('cloudinary').v2;
 const async = require('async');
 const crypto = require('crypto');
@@ -122,6 +123,19 @@ router.post('/authenticate', (req, res, next) => {
 // Profile
 router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
   res.json({user: req.user});
+});
+
+// get all menus
+router.get('/dashboard-user/getAllMenus', function(req, res){
+  Company.find({}, function(err, company){
+    const obj = JSON.parse(JSON.stringify(company));
+    console.log(obj);
+    if(err){
+      res.send('Algo ocurrio contacta con el administrador del sitio');
+      next();
+    }
+    res.json(obj[0].newMenu)
+  });
 });
 
 router.route('/users/:_id')

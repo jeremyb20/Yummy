@@ -46,6 +46,14 @@ export class AuthServices {
     }
   }
 
+  getMyMenuList(): Observable<any>{
+    if(this.isDev){
+      return this.httpClient.get('http://localhost:8080/users/dashboard-user/getAllMenus', { headers: this.headers});
+    }else{
+      return this.httpClient.get('users/dashboard-user/getAllMenus', { headers: this.headers});
+    }
+  }
+
 //   getUsers() {
 //     let headers = new Headers();
 //     this.loadToken();
