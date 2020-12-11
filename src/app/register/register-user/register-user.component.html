@@ -1,326 +1,104 @@
 <div id="register-user">
-    <!-- <div class="row d-flex justify-content-center align">
-        <div class="card border-0 rounded-0 mb-5">
-          
-            <h1 class="mb-2">Registrarse</h1> <small class="mb-3">Complete los espacios siguientes</small>
-            <label class="font-weight-bold mb-0">Nombre Completo</label> <input type="text" [(ngModel)]="name" name="name" class="mb-4" placeholder="John Doe">
-            <label class="font-weight-bold mb-0">Nombre Usuario</label> <input type="text" [(ngModel)]="username" name="username" class="mb-4" placeholder="JohnyDoe">
-            <label class="font-weight-bold mb-0">Correo</label> <input type="text" [(ngModel)]="email" name="email" class="mb-4" placeholder="abc@xyz.com">
-            <label class="font-weight-bold mb-0">Teléfono</label> <input type="text" [(ngModel)]="phone" name="phone" class="mb-4" placeholder="(506) 1234567890"> 
-            <label class="font-weight-bold mb-0">Contraseña</label> <input type="password" [(ngModel)]="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" minlength="8"> <small class="text-muted">Minimo is 8 characteres</small>
-            <div class="form-group text-center">
-              <input #photoinput type="file" name="image" accept="image/*" class="d-none"
-                (change)="processFile($event)">
-              <img [src]="photoSelected || '../../../assets/upload.png'" alt="" style="width: 200px; height: 200px;"
-                class="img-fluid" (click)="photoinput.click()" srcset="">
-            </div>
-            <div class="custom-control custom-checkbox custom-control-inline mt-4"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input" checked> <label for="chk1" class="custom-control-label text-sm">Estoy de acuerdo a los términos y servicos, términos de pagos y política de privacidad.</label> </div>
-            <div class="row px-3 mt-5"> <button type="submit" class="btn btn-yellow px-3 mr-3">Registrar</button> <small class="text-muted mr-3 mt-2">o registrarse con</small><a (click)="signInWithGoogle()"><img class="icon mr-2 mt-2" src="https://i.imgur.com/j8ZGqG2.png"></a> <a (click)="signInWithFB()"><img class="icon ml-2 mt-2" src="https://i.imgur.com/AX2lVgH.png"></a> </div>
-         
-            <svg *ngIf="loading" class="loader" viewBox="0 0 24 24">
-              <circle class="loader__value" cx="12" cy="12" r="10" />
-              <circle class="loader__value" cx="12" cy="12" r="10" />
-              <circle class="loader__value" cx="12" cy="12" r="10" />
-              <circle class="loader__value" cx="12" cy="12" r="10" />
-              <circle class="loader__value" cx="12" cy="12" r="10" />
-              <circle class="loader__value" cx="12" cy="12" r="10" />
-            </svg>
-        </div>
-    </div> -->
-
-
-
-
-
-
-
-
-
-
-<!-- 
-  <div class="card">
-    <div class="card-body border-0 p-0 rounded-0 mb-5">
-          <h4 class="mb-2">Registrarse</h4> <small class="mb-3">Complete los espacios siguientes</small>
-          <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
-              <div class="form-row">
-                  <div class="form-group col-6">
-                      <label class="font-weight-bold ">Usuario</label>
-                      <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-                      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                          <div *ngIf="f.name.errors.required">Usuario es requerido</div>
-                      </div>
-                  </div>
-                  <div class="form-group col-6">
-                      <label class="font-weight-bold ">Nombre Usuario</label>
-                      <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-                      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                          <div *ngIf="f.username.errors.required">Nombre usuario es requerido</div>
-                      </div>
-                  </div>
-              </div>
-              <div class="form-row">
-                  <div class="form-group col-6">
-                      <label class="font-weight-bold">Teléfono</label>
-                      <input formControlName="phone" pattern="\d*" class="form-control" placeholder="(+506)" maxlength="8" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
-                      <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-                          <div *ngIf="f.phone.errors.required">Telefono es requerido</div>
-                          <div *ngIf="f.phone.errors.minlength">Telefono debe ser al menos 8 digitos</div>
-                          <div *ngIf="f.phone.errors.pattern">Solo se permiten numeros</div>
-                      </div>
-                  </div>
-                  <div class="form-group col-6">
-                      <label class="font-weight-bold">Email</label>
-                      <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                          <div *ngIf="f.email.errors.required">Email is required</div>
-                          <div *ngIf="f.email.errors.email">Email debe tener un correo valido</div>
-                      </div>
-                  </div>
-              </div>
-             
-              <div class="form-row">
-                  <div class="form-group col">
-                      <label class="font-weight-bold ">Contraseña</label>
-                      <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                          <div *ngIf="f.password.errors.required">Contraseña es requerido</div>
-                          <div *ngIf="f.password.errors.minlength">Contraseña debe ser al menos 6 caracteres</div>
-                      </div>
-                  </div>
-                  <div class="form-group col">
-                      <label class="font-weight-bold">Confirmar Contraseña</label>
-                      <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
-                      <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                          <div *ngIf="f.confirmPassword.errors.required">Confirmar contraseña es requerido</div>
-                          <div *ngIf="f.confirmPassword.errors.mustMatch">Contraseña no son iguales</div>
-                      </div>
-                  </div>
-              </div>
-              <div class="form-group text-center">
-                  <label class="font-weight-bold">Foto:</label>
-                  <input #photoinput type="file" name="image" accept="image/*" class="d-none"
-                    (change)="processFile($event)">
-                  <img [src]="photoSelected || '../../../assets/upload.png'" alt="" style="width: 100px; height: 100px;"
-                    class="img-fluid" (click)="photoinput.click()" srcset="">
-                </div>
-              <div class="form-group form-check">
-                  <input type="checkbox" formControlName="acceptTerms" id="acceptTerms" class="form-check-input" [ngClass]="{ 'is-invalid': submitted && f.acceptTerms.errors }" />
-                  <label for="acceptTerms" class="font-weight-bold form-check-label">Accepto Terminos & Condiciones</label>
-                  <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback">Acceptar Ts & Cs Es requerido</div>
-              </div>
-              <div class="text-center">
-                  <button type="submit" class="btn btn-block btn-yellow btn-sm">
-                    <i *ngIf="!loading" class="fas fa-plus-circle"></i>
-                    <svg *ngIf="loading" class="loader" viewBox="0 0 24 24">
-                      <circle class="loader__value" cx="12" cy="12" r="10" />
-                      <circle class="loader__value" cx="12" cy="12" r="10" />
-                      <circle class="loader__value" cx="12" cy="12" r="10" />
-                      <circle class="loader__value" cx="12" cy="12" r="10" />
-                      <circle class="loader__value" cx="12" cy="12" r="10" />
-                      <circle class="loader__value" cx="12" cy="12" r="10" />
-                    </svg>
-                    Registrarse</button>
-                  <button [routerLink]="['/login-company']" class="btn btn-block btn-inverse btn-sm">Iniciar Sesión</button>
-                  <small class="text-muted mr-3 mt-2">o registrarse con</small><a (click)="signInWithGoogle()"><img class="icon mr-2 mt-2" src="https://i.imgur.com/j8ZGqG2.png"></a> <a (click)="signInWithFB()"><img class="icon ml-2 mt-2" src="https://i.imgur.com/AX2lVgH.png"></a>
-              </div>
-              <div *ngIf="hideMsg" class="row no-gutters alert alert-warning error-message text-center mt-2" role="alert">
-                  <i class="fas fa-times-circle mt-1 mr-3"></i> <strong class="text-center">{{ ShowMsg }}</strong>
-                </div>
-          </form>
-      </div>
-  </div> -->
   <div class="container-fluid">
     <div class="pt-4">
        <div class="card bg-light">
-    <article class="card-body mx-auto pt-1" style="max-width: 400px;">
-      <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
-        <h4>Crear cuenta</h4>
-      <p>
-        <a (click)="signInWithGoogle()" class="btn btn-block btn-google"> <i class="fab fa-google"></i>   Login via Google</a>
-        <a (click)="signInWithFB()" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
-      </p>
-        <div class="form-group input-group">
-          <div class="input-group-prepend">
-              <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-          </div>
-          <input type="text" formControlName="name" class="form-control" placeholder="Nombre completo" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-          <div *ngIf="submitted && f.name.errors" class="invalid-feedback" [ngClass]="{ 'remove-margin': submitted && f.name.errors }">
-              <div *ngIf="f.name.errors.required">Usuario es requerido</div>
-          </div>
-        </div> 
-        <div class="form-group input-group">
-          <div class="input-group-prepend">
-              <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-          </div>
-          <input type="text" formControlName="username" class="form-control" placeholder="Nombre Usuario" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-          <div *ngIf="submitted && f.username.errors" class="invalid-feedback" [ngClass]="{ 'remove-margin': submitted && f.name.errors }">
-              <div *ngIf="f.username.errors.required">Usuario es requerido</div>
-          </div>
-        </div> 
-        <div class="form-group input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-          </div>
-          <input type="text" formControlName="email" placeholder="Correo electronico" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-          <div *ngIf="submitted && f.email.errors" class="invalid-feedback" [ngClass]="{ 'remove-margin': submitted && f.name.errors }">
-              <div *ngIf="f.email.errors.required">Email es requerido</div>
-              <div *ngIf="f.email.errors.email">Email debe tener un correo valido</div>
-          </div>
-        </div> 
-        <div class="form-group input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-          </div>
-          <select class="custom-select" style="max-width: 90px;">
-              <option selected="">+506</option>
-          </select>
-          <input formControlName="phone" pattern="\d*" class="form-control" placeholder="Numero telefonico" maxlength="8" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
-          <div *ngIf="submitted && f.phone.errors" class="invalid-feedback" [ngClass]="{ 'remove-margin': submitted && f.name.errors }">
-              <div *ngIf="f.phone.errors.required">Telefono es requerido</div>
-              <div *ngIf="f.phone.errors.minlength">Telefono debe ser al menos 8 digitos</div>
-              <div *ngIf="f.phone.errors.pattern">Solo se permiten numeros</div>
-          </div>
-        </div>  
-        <div class="form-group input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-          </div>
-          <input type="password" formControlName="password" class="form-control" placeholder="Contraseña" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-          <div *ngIf="submitted && f.password.errors" class="invalid-feedback" [ngClass]="{ 'remove-margin': submitted && f.name.errors }">
-              <div *ngIf="f.password.errors.required">Contraseña es requerido</div>
-              <div *ngIf="f.password.errors.minlength">Contraseña debe ser al menos 6 caracteres</div>
-          </div>
-        </div> 
-        <div class="form-group input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-          </div>
-          <input type="password" formControlName="confirmPassword" placeholder="Confirmar contraseña" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
-          <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback" [ngClass]="{ 'remove-margin': submitted && f.name.errors }">
-              <div *ngIf="f.confirmPassword.errors.required">Confirmar contraseña es requerido</div>
-              <div *ngIf="f.confirmPassword.errors.mustMatch">Contraseña no son iguales</div>
-          </div>
-        </div> 
-        <div class="form-group mb-1 text-center">
-          <label class="font-weight-bold">Foto:</label>
-          <input #photoinput type="file" name="image" accept="image/*" class="d-none"
-            (change)="processFile($event)">
-          <img [src]="photoSelected || '../../../assets/upload.png'" alt="" style="height: 66px;" class="img-fluid" (click)="photoinput.click()" srcset="">
-        </div>
-        <div class="form-group form-check">
-          <input type="checkbox" formControlName="acceptTerms" id="acceptTerms" class="form-check-input" [ngClass]="{ 'is-invalid': submitted && f.acceptTerms.errors }" />
-          <label for="acceptTerms" class="font-weight-bold form-check-label">Accepto Terminos & Condiciones</label>
-          <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback">Acceptar Ts & Cs Es requerido</div>
-      </div>                                      
-        <div class="form-group">
-            <button type="submit" class="btn btn-yellow btn-block"> <i *ngIf="!loading" class="fas fa-plus-circle"></i>
-              <svg *ngIf="loading" class="loader" viewBox="0 0 24 24">
-                <circle class="loader__value" cx="12" cy="12" r="10" />
-                <circle class="loader__value" cx="12" cy="12" r="10" />
-                <circle class="loader__value" cx="12" cy="12" r="10" />
-                <circle class="loader__value" cx="12" cy="12" r="10" />
-                <circle class="loader__value" cx="12" cy="12" r="10" />
-                <circle class="loader__value" cx="12" cy="12" r="10" />
-              </svg>
-              Crear Cuenta
-            </button>
-        </div>       
-        <p class="text-center">Tiene una cuenta? <a [routerLink]="['/login-company']">Iniciar sesion</a> </p>                                                                 
-    </form>
-    </article>
-    </div> 
-    </div>
-   
-    
-    </div> 
-
-
-
-
-
-
-
-
-
-</div>
-
-<!-- <div class="row no-gutters justify-content-center fadeInDown">
-    <div class="col-md-6">
-      <div class="card">
-        <header class="card-header fadeIn first">
-          <a [routerLink]="['/login']" class="nav-link float-right btn btn-outline-primary mt-1">Log in</a>
-          <h4 class="card-title mt-2">Sign up</h4>
-        </header>
-        <article class="card-body">
-          <form (submit)="onRegisterSubmit()" enctype="multipart/form-data">
-            <div class="form-row">
-              <div class="col form-group">
-                <label>Name </label>
-                <input type="text" [(ngModel)]="name" name="name" class="form-control fadeIn second" id="name" placeholder="Enter Name">
+        <article class="card-body mx-auto pt-1" style="max-width: 400px;">
+          <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+            <h4>Crear cuenta</h4>
+          <p>
+            <a (click)="signInWithGoogle()" class="btn btn-block btn-google"> <i class="fab fa-google"></i>   Login via Google</a>
+            <a (click)="signInWithFB()" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
+          </p>
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text"> <i class="fa fa-user"></i> </span>
               </div>
-              <div class="col form-group">
-                <label for="username">Username</label>
-                <input type="text" [(ngModel)]="username" name="username" class="form-control fadeIn second" id="username"
-                  placeholder="Enter Username">
+              <input type="text" formControlName="name" class="form-control" placeholder="Nombre completo" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+              <div *ngIf="submitted && f.name.errors" class="invalid-feedback" [ngClass]="{ 'remove-margin text-center': submitted && f.name.errors }">
+                  <div *ngIf="f.name.errors.required">Usuario es requerido</div>
               </div>
             </div> 
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" [(ngModel)]="email" name="email" class="form-control fadeIn third" id="email"
-                aria-describedby="emailHelp" placeholder="Enter Email">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" [(ngModel)]="password" name="password" class="form-control fadeIn third" id="password"
-                placeholder=" Enter Password">
-            </div>
-            <div class="form-group text-center">
-                <input #photoinput type="file" name="image" accept="image/*" class="d-none"
-                  (change)="processFile($event)">
-                <img [src]="photoSelected || '../../../assets/upload.png'" alt="" style="width: 200px; height: 200px;"
-                  class="img-fluid" (click)="photoinput.click()" srcset="">
-            </div>
-  
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block"> Register </button>
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+              </div>
+              <input type="text" formControlName="username" class="form-control" placeholder="Nombre Usuario" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+              <div *ngIf="submitted && f.username.errors" class="invalid-feedback" [ngClass]="{ 'remove-margin text-center': submitted && f.username.errors }">
+                  <div *ngIf="f.username.errors.required">Usuario es requerido</div>
+              </div>
             </div> 
-            <small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use
-              and Privacy Policy.</small>
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+              </div>
+              <input type="text" formControlName="email" placeholder="Correo electronico" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+              <div *ngIf="submitted && f.email.errors" class="invalid-feedback" [ngClass]="{ 'remove-margin text-center': submitted && f.email.errors }">
+                  <div *ngIf="f.email.errors.required">Email es requerido</div>
+                  <div *ngIf="f.email.errors.email">Email debe tener un correo valido</div>
+              </div>
+            </div> 
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+              </div>
+              <select class="custom-select" style="max-width: 90px;">
+                  <option selected="">+506</option>
+              </select>
+              <input formControlName="phone" pattern="\d*" class="form-control" placeholder="Numero telefonico" maxlength="8" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+              <div *ngIf="submitted && f.phone.errors" class="invalid-feedback" [ngClass]="{ 'remove-margin text-center': submitted && f.phone.errors }">
+                  <div *ngIf="f.phone.errors.required">Telefono es requerido</div>
+                  <div *ngIf="f.phone.errors.minlength">Telefono debe ser al menos 8 digitos</div>
+                  <div *ngIf="f.phone.errors.pattern">Solo se permiten numeros</div>
+              </div>
+            </div>  
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+              </div>
+              <input type="password" formControlName="password" class="form-control" placeholder="Contraseña" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+              <div *ngIf="submitted && f.password.errors" class="invalid-feedback" [ngClass]="{ 'remove-margin text-center': submitted && f.password.errors }">
+                  <div *ngIf="f.password.errors.required">Contraseña es requerido</div>
+                  <div *ngIf="f.password.errors.minlength">Contraseña debe ser al menos 6 caracteres</div>
+              </div>
+            </div> 
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+              </div>
+              <input type="password" formControlName="confirmPassword" placeholder="Confirmar contraseña" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+              <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback" [ngClass]="{ 'remove-margin text-center': submitted && f.confirmPassword.errors }">
+                  <div *ngIf="f.confirmPassword.errors.required">Confirmar contraseña es requerido</div>
+                  <div *ngIf="f.confirmPassword.errors.mustMatch">Contraseña no son iguales</div>
+              </div>
+            </div> 
+            <div class="form-group mb-1 text-center">
+              <label class="font-weight-bold">Foto:</label>
+              <input #photoinput type="file" name="image" accept="image/*" class="d-none"
+                (change)="processFile($event)">
+              <img [src]="photoSelected || '../../../assets/upload.png'" alt="" style="height: 66px;" class="img-fluid" (click)="photoinput.click()" srcset="">
+            </div>
+            <div class="form-group form-check">
+              <input type="checkbox" formControlName="acceptTerms" id="acceptTerms" class="form-check-input" [ngClass]="{ 'is-invalid': submitted && f.acceptTerms.errors }" />
+              <label for="acceptTerms" class="font-weight-bold form-check-label">Accepto Terminos & Condiciones</label>
+              <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback">Acceptar Ts & Cs Es requerido</div>
+          </div>                                      
+            <div class="form-group">
+                <button type="submit" class="btn btn-yellow btn-block"> <i *ngIf="!loading" class="fas fa-plus-circle"></i>
+                  <svg *ngIf="loading" class="loader" viewBox="0 0 24 24">
+                    <circle class="loader__value" cx="12" cy="12" r="10" />
+                    <circle class="loader__value" cx="12" cy="12" r="10" />
+                    <circle class="loader__value" cx="12" cy="12" r="10" />
+                    <circle class="loader__value" cx="12" cy="12" r="10" />
+                    <circle class="loader__value" cx="12" cy="12" r="10" />
+                    <circle class="loader__value" cx="12" cy="12" r="10" />
+                  </svg>
+                  Crear Cuenta
+                </button>
+            </div>       
+            <p class="text-center">Tiene una cuenta? <a [routerLink]="['/login-company']">Iniciar sesion</a> </p>                                                                 
           </form>
-        </article> 
-        <div class="border-top card-body text-center">Have an account? <a [routerLink]="['/login']">Log In</a></div>
+        </article>
       </div> 
-    </div> 
-    
-  </div>  -->
-
-  <!-- <div class="jumbotron bg-transparent text-center">
-    <div *ngIf="!user" class="card text-center">
-      <h6 class="card-header">
-        Social Login Demo
-      </h6>
-      <div class="card-block">
-        <h4 class="card-title">Not signed in</h4>
-        <p class="card-text">Sign in with</p>
-      </div>
-      <div class="card-block">
-        <button class="btn btn-social-icon btn-google" (click)="signInWithGoogle()"><span class="fa fa-google"></span></button>
-        <button class="btn btn-social-icon btn-facebook" (click)="signInWithFB()"><span class="fa fa-facebook"></span></button>
-      </div>
     </div>
-    <div *ngIf="user" class="card text-center">
-      <h6 class="card-header">
-        Social Login Demo
-      </h6>
-      <div class="card-block"></div>
-      <img class="card-img-top img-responsive photo" src="{{ user.photoUrl }}">
-      <div class="card-block">
-        <h4 class="card-title">{{ user.name }}</h4>
-        <p class="card-text">{{ user.email }}</p>
-      </div>
-      <div class="card-block">
-        <button class="btn btn-danger" (click)="signOut()">Sign out</button>
-      </div>
-    </div>
-  </div> -->
+  </div> 
+</div>

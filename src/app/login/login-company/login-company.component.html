@@ -19,7 +19,7 @@
                         <div *ngIf="f.password.errors.required">Password is required</div>
                       </div>
                     </div>
-                    <a href="#" class="text-sm ml-auto text-dim">Olvidó contraseña?</a>
+                    <a [routerLink]="['/forgot-company']" class="text-sm ml-auto text-dim">Olvidó contraseña?</a>
                     <div class="row mt-2">
                       <div class="col-6"> <button type="submit" class="btn btn-block btn-inverse btn-sm">Iniciar Sesión</button> </div>
                       <div class="col-6"> <button [routerLink]="['/register-company']" class="btn btn-block btn-yellow btn-sm">Registrarse</button> </div>

@@ -254,6 +254,8 @@ router.post('/mailbox/sendMessage', (req, res, next) => {
 
 
 router.post('/forgot', (req, res, next) => {
+  const obj = JSON.parse(JSON.stringify(req.body));
+  console.log(obj)
   async.waterfall([
     function(done) {
       crypto.randomBytes(20, function(err, buf) {
@@ -262,7 +264,7 @@ router.post('/forgot', (req, res, next) => {
       });
     },
     function(token, done) {
-        Company.findOne({ email: req.body.email }, (err, user) => {
+        Company.findOne({ email: obj.email }, (err, user) => {
         if (!user) {
          return res.json({success:false,msg: 'Email not found'});
         }
@@ -303,15 +305,15 @@ router.post('/forgot', (req, res, next) => {
       var mailOptions = {
         to: user.email,
         from: 'marco@ticowebmail.com',
-        subject: 'Node.js Password Reset',
-        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+        subject: 'Yummy Eats restablecimiento de la contraseña',
+        text: 'Recibe esto porque usted (u otra persona) ha solicitado el restablecimiento de la contraseña de su cuenta.\n\n' +
+          'Haga clic en el siguiente enlace o péguelo en su navegador para completar el proceso:\n\n' +
           //'http://localhost:4200/reset/' + token + '\n\n' +
           'https://' + req.headers.host + '/reset/' + token + '\n\n' +
-          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+          'Si no lo solicitó, ignore este correo electrónico y su contraseña permanecerá sin cambios.\n'
       };
       smtpTransport.sendMail(mailOptions, function(err) {
-        res.json({success: true, msg: 'An e-mail has been sent to ' + user.email + ' with further instructions.'});
+        res.json({success: true, msg: 'Se ha enviado un correo electrónico a ' + user.email + ' con más instrucciones.'});
         done(err, 'done');
       });
     }

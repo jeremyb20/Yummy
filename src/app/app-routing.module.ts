@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ForgotComponent } from './forgot/forgot.component';
-import { ResetComponent } from './reset/reset.component';
 import { MapComponent } from './map/map.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterUserComponent } from './register/register-user/register-user.component';
@@ -21,6 +19,12 @@ import { LoginLayoutComponent } from './layouts/login-layout/login-layout.compon
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MenuRegisteredComponent } from './menu-registered/menu-registered.component';
+import { ForgotCompanyComponent } from './forgot/forgot-company/forgot-company.component';
+import { ForgotUserComponent } from './forgot/forgot-user/forgot-user.component';
+import { ForgotDriverComponent } from './forgot/forgot-driver/forgot-driver.component';
+import { ResetCompanyComponent } from './reset/reset-company/reset-company.component';
+import { ResetUserComponent } from './reset/reset-user/reset-user.component';
+import { ResetDriverComponent } from './reset/reset-driver/reset-driver.component';
 
 
 const routes: Routes = [
@@ -30,8 +34,12 @@ const routes: Routes = [
       children: [
           { path: '', redirectTo: 'home',  pathMatch: 'full' }, 
           { path: 'home', component: HomeComponent },
-          { path: 'reset', component: ResetComponent },
-          { path: 'forgot', component: ForgotComponent },
+          { path: 'forgot-company', component: ForgotCompanyComponent },
+          { path: 'forgot-user', component: ForgotUserComponent },
+          { path: 'forgot-driver', component: ForgotDriverComponent },
+          { path: 'reset-company/:token', component: ResetCompanyComponent },
+          { path: 'reset-user/:token', component: ResetUserComponent },
+          { path: 'reset-driver/:token', component: ResetDriverComponent },
           { path: 'login-company', component: LoginCompanyComponent },
           { path: 'login-driver', component: LoginDriverComponent },
           { path: 'register-user', component: RegisterUserComponent },

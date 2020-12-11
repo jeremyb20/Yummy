@@ -16,8 +16,6 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MapComponent } from './map/map.component';
-import { ForgotComponent } from './forgot/forgot.component';
-import { ResetComponent } from './reset/reset.component';
 import { SettingsComponent } from './settings/settings.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterUserComponent } from './register/register-user/register-user.component';
@@ -38,6 +36,12 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { NotificationService } from './common/services/notification.service';
 import { NotificationComponent } from './notification/notification.component';
 import { MenuRegisteredComponent } from './menu-registered/menu-registered.component';
+import { ForgotCompanyComponent } from './forgot/forgot-company/forgot-company.component';
+import { ForgotUserComponent } from './forgot/forgot-user/forgot-user.component';
+import { ForgotDriverComponent } from './forgot/forgot-driver/forgot-driver.component';
+import { ResetCompanyComponent } from './reset/reset-company/reset-company.component';
+import { ResetUserComponent } from './reset/reset-user/reset-user.component';
+import { ResetDriverComponent } from './reset/reset-driver/reset-driver.component';
 
 export function tokenGetter() {
   return localStorage.getItem("id_token");
@@ -48,8 +52,6 @@ export function tokenGetter() {
     AppComponent,
     ToolbarComponent,
     MapComponent,
-    ForgotComponent,
-    ResetComponent,
     SettingsComponent,
     HomeComponent,
     RegisterUserComponent,
@@ -68,7 +70,13 @@ export function tokenGetter() {
     LoginLayoutComponent,
     NotFoundComponent,
     NotificationComponent,
-    MenuRegisteredComponent
+    MenuRegisteredComponent,
+    ForgotCompanyComponent,
+    ForgotUserComponent,
+    ForgotDriverComponent,
+    ResetCompanyComponent,
+    ResetUserComponent,
+    ResetDriverComponent
   ],
   imports: [
     BrowserModule,

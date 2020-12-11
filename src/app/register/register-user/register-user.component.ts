@@ -49,9 +49,6 @@ export class RegisterUserComponent implements OnInit {
    }
 
   ngOnInit() {
-  }
-
-  siginSocialMedia() {
     this.authService.authState.subscribe((user) => {
       this.loading = true;
       this.user = user;
@@ -100,6 +97,9 @@ export class RegisterUserComponent implements OnInit {
     });
   }
 
+  siginSocialMedia() {
+  }
+
   // convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }
 
@@ -145,7 +145,6 @@ export class RegisterUserComponent implements OnInit {
           buttonsStyling: false,
           reverseButtons: true,
           position: 'top',
-          padding: 0,
           customClass: { confirmButton: 'col-auto btn btn-info m-3' }
         })
         .then((result) => {
@@ -169,13 +168,11 @@ export class RegisterUserComponent implements OnInit {
 
 
   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(x => console.log(x));
-    this.siginSocialMedia();
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(x => console.log());
   }
 
   signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => console.log(x));
-    this.siginSocialMedia();
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => console.log());
   }
 
 

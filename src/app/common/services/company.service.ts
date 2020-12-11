@@ -18,7 +18,7 @@ export class CompanyService {
   isDev: boolean = false;
 
   constructor(private httpClient: HttpClient, private jwtHelper: JwtHelperService) {
-      this.isDev = true;  // Change to false when you're gonna deploy your app, true when is on develop 
+      this.isDev = false;  // Change to false when you're gonna deploy your app, true when is on develop 
   }
 
   registerCompany(company,  photo:any):Observable<any> {
@@ -58,9 +58,9 @@ export class CompanyService {
     fd.append('image', photo);
 
     if(this.isDev) {
-      return this.httpClient.post<any>('http://localhost:8080/company/register/newMenu', fd);
+      return this.httpClient.post<any>('http://localhost:8080/company/register/newMenu', fd,{ headers: this.headers});
     }else{
-      return this.httpClient.post<any>('company/register/newMenu', fd);
+      return this.httpClient.post<any>('company/register/newMenu', fd,{ headers: this.headers});
     }
   }
 
@@ -100,6 +100,25 @@ export class CompanyService {
       return this.httpClient.put<any>('http://localhost:8080/company/delete/deleteMenuItemList',fd);
     }else{
       return this.httpClient.put<any>('company/delete/deleteMenuItemLis',fd);
+    }
+  }
+
+
+  forgotPassword(email):Observable<any> {
+    const fd = new FormData();
+    fd.append('email',email.email);
+    if (this.isDev) {
+      return this.httpClient.post<any>('http://localhost:8080/company/forgot', fd);
+    } else {
+      return this.httpClient.post<any>('company/forgot/', fd);
+    }
+  }
+
+  resetPassword(reset):Observable<any> {
+    if (this.isDev) {
+      return this.httpClient.post<any>('http://localhost:8080/company/reset/', reset);
+    } else {
+      return this.httpClient.post<any>('company/reset', reset);
     }
   }
 
