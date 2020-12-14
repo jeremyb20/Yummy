@@ -4,7 +4,7 @@
   "description": "MEAN stack authentication app",
   "main": "app.js",
   "scripts": {
-    "start": "node app",
+    "start": "node app.js",
     "build": "set NODE_ENV=production"
   },
   "dependencies": {
@@ -39,7 +39,7 @@
     "@angular/cli": "^11.0.3"
   },
   "engines": {
-    "node": "10.17.x",
-    "npm": "6.11.x"
+    "node": "14.7.x",
+    "npm": "6.14.x"
   }
 }
