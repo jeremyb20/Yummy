@@ -42,34 +42,32 @@ router.post('/register/new-company', async(req, res, next) => {
   });
 
   Company.addCompany(newCompany,async(user, done) => {
-    console.log(user);
     try {
-      // var smtpTransport = nodemailer.createTransport({
-      //   host: 'mail.ticowebmail.com',
-      //   port: 25,
-      //   secure: false,
-      //   logger: true,
-      //   debug: true,
-      //   ignoreTLS: true,
-      //   auth: {
-      //     user: 'marco@ticowebmail.com',
-      //     pass: 'NTRNTxplr12'
-      //   },
-      //   tls: {
-      //     // do not fail on invalid certs
-      //     rejectUnauthorized: false
-      //   }
-      // });
-      // var mailOptions = {
-      //   to: newUser.email,
-      //   from: 'marco@ticowebmail.com',
-      //   subject: 'Node.js Register User',
-      //   text: '¡Bienvenido a Yummy Eats! ' + obj.name + ' para iniciar sesion estos serian sus credenciales: correo: ' + obj.email + ' contraseña temporal:'+obj.password 
-      // };
-      // smtpTransport.sendMail(mailOptions, function (err) {
-      //   res.json({ success: true, msg: 'User registered' });
-      // });
-      res.json({ success: true, msg: 'Compañia registrada exitosamente' });
+      var smtpTransport = nodemailer.createTransport({
+        host: 'mail.ticowebmail.com',
+        port: 25,
+        secure: false,
+        logger: true,
+        debug: true,
+        ignoreTLS: true,
+        auth: {
+          user: 'marco@ticowebmail.com',
+          pass: 'NTRNTxplr12'
+        },
+        tls: {
+          // do not fail on invalid certs
+          rejectUnauthorized: false
+        }
+      });
+      var mailOptions = {
+        to: newUser.email,
+        from: 'marco@ticowebmail.com',
+        subject: 'Node.js Register User',
+        text: '¡Bienvenido a Yummy Eats! ' + obj.name + ' para iniciar sesion estos serian sus credenciales: correo: ' + obj.email + ' contraseña temporal:'+obj.password 
+      };
+      smtpTransport.sendMail(mailOptions, function (err) {
+        res.json({ success: true, msg: 'Compañia registrada exitosamente' });
+      });
       } catch (err) {
         res.json({success: false, msg: 'That Email or Username already exisits.!'});
         next(err);
@@ -279,20 +277,28 @@ router.post('/forgot', (req, res, next) => {
       });
     },
     function(token, user, done) {
+      // var smtpTransport = nodemailer.createTransport({
+      //   host: 'mail.ticowebmail.com',
+      //   port: 25,
+      //   secure: false,
+      //   logger: true,
+      //   debug: true,
+      //   ignoreTLS: true,
+      //   auth: {
+      //     user: 'marco@ticowebmail.com',
+      //     pass: 'NTRNTxplr12'
+      //   },
+      //   tls: {
+      //     // do not fail on invalid certs
+      //     rejectUnauthorized: false
+      //   }
+      // });
       var smtpTransport = nodemailer.createTransport({
-        host: 'mail.ticowebmail.com',
-        port: 25,
-        secure: false,
-        logger: true,
-        debug: true,
-        ignoreTLS: true,
+        service: 'gmail',
+        host: 'smtp.gmail.com',
         auth: {
-          user: 'marco@ticowebmail.com',
-          pass: 'NTRNTxplr12'
-        },
-        tls: {
-          // do not fail on invalid certs
-          rejectUnauthorized: false
+          user: 'jeremybarquero18@gmail.com',
+          pass: 'octubre151096'
         }
       });
       smtpTransport.verify(function(error, success) {
