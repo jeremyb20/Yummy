@@ -5,7 +5,11 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "build": "set NODE_ENV=production"
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "async": "^3.2.0",
@@ -30,6 +34,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^3.1.0",
+    "serve": "^11.3.2",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0"
   },
