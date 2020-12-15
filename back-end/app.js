@@ -16,6 +16,7 @@ const User = require('./models/user');
 
 // Port Number
 const port = process.env.PORT || 8080;
+console.log(port)
  
 mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlParser', true);
