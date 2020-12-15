@@ -6,13 +6,12 @@ const logger = require('morgan');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const config = require('./config/database');
 const socket = require('socket.io');
 const multer = require('multer');
 const session = require('express-session');
 const flash = require('express-flash');
-const User = require('./models/user');
-const env = require('dotenv').config();
+const User = require('./back-end/models/user');
+require('dotenv').config();
 
 // Port Number
 const port = process.env.PORT || 8080;
@@ -34,8 +33,8 @@ mongoose.connect(process.env.BD_URL, {
 
 const app = express();
 
-const users = require('./routes/users');
-const companys = require('./routes/companys');
+const users = require('./back-end/routes/users');
+const companys = require('./back-end/routes/companys');
 
 app.use(bodyParser.urlencoded({
   extended: false
@@ -84,7 +83,7 @@ app.use(session({ cookie: { maxAge: 60000 },
   resave: false, 
   saveUninitialized: false}));
 
-require('./config/passport')(passport);
+require('./back-end/config/passport')(passport);
 app.use(flash());
 app.use('/users', users);
 app.use('/company', companys);
@@ -95,7 +94,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 // Start Server

@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const config = require('../config/database');
 const Company = require('../models/company');
 const cloudinary = require('cloudinary').v2;
 const async = require('async');
@@ -10,6 +9,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const app = express();
+require('dotenv').config();
 
 var fileupload = require('express-fileupload');
 const { element } = require('protractor');
@@ -90,7 +90,7 @@ router.post('/authenticate', (req, res, next) => {
     Company.comparePassword(password, company.password, (err, isMatch) => {
       if(err) throw err;
       if(isMatch) {
-        const token = jwt.sign({data: company}, config.secret, {
+        const token = jwt.sign({data: company}, process.env.SECRET, {
           expiresIn: 604800   // 1 week: 604800 1 day //60 one minute 
         });
         res.json({
